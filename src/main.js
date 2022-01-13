@@ -3,6 +3,8 @@ import Header from "./components/header";
 import Footer from "./components/footer";
 import HomePage from "./pages/home";
 import PageNews from "./pages/page_News";
+import Signin from "./pages/signin";
+import Signup from "./pages/signup";
 
 const router = new Navigo("/", { linksSelector: "a" });
 
@@ -20,6 +22,24 @@ router.on({
     },
     "/tintuc": () => {
         print(PageNews.render());
+    },
+    "/signup": () => {
+        print(Signup.render());
+    },
+    "/signin": () => {
+        print(Signin.render());
+    },
+    "/admin/dashboard": () => {
+        print("Trang Quản trị admin");
+    },
+    "/admin/news": () => {
+        print("Trang quản lý tin tức");
+    },
+    "/admin/news/add": () => {
+        print("Trang thêm tin tức");
+    },
+    "/admin/news/:id/edit": () => {
+        print("Trang cập nhật tin tức");
     },
 });
 

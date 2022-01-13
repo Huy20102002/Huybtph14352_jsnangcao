@@ -3,7 +3,7 @@ const Header = {
         return /* html */ `
         <div class="logo bg-blue-900 pt-5 pb-4">
         <a class="" href="">
-            <img class="m-auto w-1/6" src="./image/logo.png" alt="">
+            <img class="m-auto w-1/6" src="./src/image/logo.png" alt="">
         </a>
     </div>
     <nav class="menu bg-amber-600">
