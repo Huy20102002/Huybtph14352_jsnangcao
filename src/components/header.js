@@ -11,7 +11,7 @@ const Header = {
          <a class="text-xs" href="">Hỗ trợ | </a>
          <a class="text-xs" href="">Liên hệ |</a>
          <a class="text-xs" href="">Ngôn ngữ</a>
-         <a class ="text-xs" href ="/admin/news">|Quản trị</a>
+         <a class ="text-xs" href ="/admin/dashboard">|Quản trị</a>
      </div>
      </div>
   </div>
