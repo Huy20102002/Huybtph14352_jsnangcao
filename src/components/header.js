@@ -22,7 +22,7 @@ const Header = {
     <nav>
         <ul class="flex">
             <li>
-                <a class="text-slate-800 font-medium p-2 ml-4 block" href="">Trang Chủ</a>
+                <a class="text-slate-800 font-medium p-2 ml-4 block" href="/home">Trang Chủ</a>
             </li>
             <li>
                 <a class="text-slate-800 font-medium p-2 ml-4 block" href="/product">Sản Phẩm</a>
