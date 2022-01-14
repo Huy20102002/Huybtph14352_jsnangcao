@@ -2,8 +2,8 @@ const Banner = {
     render() {
         return `
         <a href="">
-        <img class=" w-screen " src="./src/image/banner.png" alt="">
-       </a>
+        <img class="rounded" src="./src/image/bannernikw.png" alt="">
+    </a>
         `;
     },
 };

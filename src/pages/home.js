@@ -1,19 +1,51 @@
+import producthot from "../components/producthot";
+import ProductClothes from "../components/productClothes";
+import ProductShoes from "../components/productShoes";
 import Banner from "../components/banner";
-import News from "../components/news";
-import Activities from "../components/activities";
+
+import Header from "../components/header";
+import Footer from "../components/footer";
 
 const HomePage = {
     render() {
-        return `
-        <div class="banner mt-2">
-          ${Banner.render()}
-        </div>
-        <div class="news ">
-         ${News.render()}
-         </div>
-         <div class="news-actives ">
-        ${Activities.render()}
-        </div>
+        return /* html */ `
+        <header>
+         ${Header.render()}
+        </header>
+    <main>
+    <div class="container m-auto"> 
+ <div class="banner mt-4 ">
+ ${Banner.render()}
+   </div>
+<div class="product-hot">
+    <div class="title-product">
+        <h1 class="text-slate-800 text-xl font-medium mt-5">Sản Phẩm Nổi Bật</h1>
+    </div>
+    <div class="details-product">
+       ${producthot.render()}
+    </div>
+</div>
+<div class="product-clothes">
+<div class="title-product">
+    <h1 class="text-slate-800 text-xl font-medium mt-5">Quần áo</h1>
+</div>
+<div class="details-product">
+ ${ProductClothes.render()}
+</div>
+</div>
+<div class="product-shoe">
+<div class="title-product">
+    <h1 class="text-slate-800 text-xl font-medium mt-5">Giày Dép</h1>
+</div>
+<div class="details-product">
+${ProductShoes.render()}
+</div>
+</div>
+ </div>
+    </main>
+    <footer>
+    ${Footer.render()}
+    </footer>
         `;
     },
 };

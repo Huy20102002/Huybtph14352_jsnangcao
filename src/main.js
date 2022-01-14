@@ -1,18 +1,20 @@
 import Navigo from "navigo";
-import Header from "./components/header";
-import Footer from "./components/footer";
 import HomePage from "./pages/home";
 import PageNews from "./pages/page_News";
 import Signin from "./pages/signin";
 import Signup from "./pages/signup";
+import AdminDashboard from "./pages/admin/dashboard";
+import Adminnews from "./pages/admin/news/news";
+import AddNews from "./pages/admin/news/Addnews";
+import UpdateNews from "./pages/admin/news/Update_news";
+import ListProduct from "./pages/product";
 
 const router = new Navigo("/", { linksSelector: "a" });
 
 const print = (content) => {
-    document.querySelector("#header").innerHTML = Header.render();
-    document.querySelector("#main").innerHTML = content;
-    document.querySelector("#footer").innerHTML = Footer.render();
+    document.querySelector("#app").innerHTML = content;
 };
+
 router.on({
     "/": () => {
         print(HomePage.render());
@@ -29,17 +31,20 @@ router.on({
     "/signin": () => {
         print(Signin.render());
     },
+    "/product": () => {
+        print(ListProduct.render());
+    },
     "/admin/dashboard": () => {
-        print("Trang Quản trị admin");
+        print(AdminDashboard.render());
     },
     "/admin/news": () => {
-        print("Trang quản lý tin tức");
+        print(Adminnews.render());
     },
     "/admin/news/add": () => {
-        print("Trang thêm tin tức");
+        print(AddNews.render());
     },
-    "/admin/news/:id/edit": () => {
-        print("Trang cập nhật tin tức");
+    "/admin/news/:id/edit": (value) => {
+        print(UpdateNews.render(value.data.id));
     },
 });
 
