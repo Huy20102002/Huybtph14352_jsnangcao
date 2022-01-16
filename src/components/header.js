@@ -39,14 +39,14 @@ const Header = {
                 <!-- Left links -->
                 <ul class="navbar-nav flex flex-col pl-0 list-style-none mr-auto">
                     <li class="nav-item p-2">
-                        <a class="nav-link text-black font-semibold" href="#">Trang chủ</a>
+                        <a class="nav-link text-black font-semibold" href="/home">Trang chủ</a>
                     </li>
                     <li class="nav-item p-2">
-                        <a class="nav-link text-black  font-semibold" href="#">Sản Phẩm</a
+                        <a class="nav-link text-black  font-semibold" href="/product">Sản Phẩm</a
                         >
                     </li>
                     <li class="nav-item p-2">
-                        <a  class="nav-link text-black  font-semibold" href="#">Tin Tức</a>
+                        <a  class="nav-link text-black  font-semibold" href="/news">Tin Tức</a>
                     </li>
                     <li class="nav-item p-2">
                         <a class="nav-link text-black text-black font-semibold" href="#">Giới Thiệu</a
