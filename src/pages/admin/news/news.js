@@ -2,6 +2,7 @@ import NavbarAdmin from "../../../components/NavbarAdmin";
 import DataProducts from "../../../data/DataProduct";
 
 const Adminnews = {
+
         render() {
             return /* html */ `
         ${NavbarAdmin.render()}
@@ -79,7 +80,7 @@ const Adminnews = {
             <a href="#" class="text-indigo-600 hover:text-indigo-900">Delete</a>
           </td>
         </tr>
-          `).join("")};
+          `).join("")}
           
           </tbody>
         </table>
@@ -89,6 +90,9 @@ const Adminnews = {
 </div>
         </main>
         `;
+    },
+    afterRender() {
+
     },
 };
 export default Adminnews;

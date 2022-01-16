@@ -11,41 +11,36 @@ import ListProduct from "./pages/product";
 
 const router = new Navigo("/", { linksSelector: "a" });
 
-const print = (content) => {
-    document.querySelector("#app").innerHTML = content;
+const print = (content, id) => {
+    document.querySelector("#app").innerHTML = content.render(id);
 };
 
 router.on({
-    "/": () => {
-        print(HomePage.render());
-    },
-    "/home": () => {
-        print(HomePage.render());
-    },
-    "/tintuc": () => {
-        print(PageNews.render());
-    },
+    "/": () => { print(HomePage); },
+    "/home": () => { print(HomePage); },
     "/signup": () => {
-        print(Signup.render());
+        print(Signup);
     },
     "/signin": () => {
-        print(Signin.render());
+        print(Signin);
     },
     "/product": () => {
-        print(ListProduct.render());
+        print(ListProduct);
+    },
+    "/news": () => {
+        print(PageNews);
     },
     "/admin/dashboard": () => {
-        print(AdminDashboard.render());
+        print(AdminDashboard);
     },
     "/admin/news": () => {
-        print(Adminnews.render());
+        print(Adminnews);
     },
     "/admin/news/add": () => {
-        print(AddNews.render());
+        print(AddNews);
     },
-    "/admin/news/:id/edit": (value) => {
-        print(UpdateNews.render(value.data.id));
-    },
+    "/admin/news/:id/edit": ({ data }) => { print(UpdateNews, data.id); },
+
 });
 
 router.resolve();

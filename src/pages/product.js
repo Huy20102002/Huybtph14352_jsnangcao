@@ -15,31 +15,31 @@ const ListProduct = {
           <div class="main-product mt-5 md:flex">
               <div class="left-listproduct">
                   <div class="title-listproduct leading-9 ">
-                      <div class="w-52 text-center h-96 overflow-auto touch-auto ...">
-                          <p><a class="text-slate-800 font-medium " href="">Jorden</a></p>
-                          <p><a class="text-slate-800 font-medium " href="">Running</a></p>
-                          <p><a class="text-slate-800 font-medium " href="">Football</a></p>
-                          <p><a class="text-slate-800 font-medium " href="">Golf</a></p>
-                          <p><a class="text-slate-800 font-medium " href="">Tennis</a></p>
-                          <p><a class="text-slate-800 font-medium " href="">Walking</a></p>
-                          <p><a class="text-slate-800 font-medium " href="">Jorden</a></p>
-                          <p><a class="text-slate-800 font-medium " href="">Running</a></p>
-                          <p><a class="text-slate-800 font-medium " href="">Football</a></p>
-                          <p><a class="text-slate-800 font-medium " href="">Golf</a></p>
-                          <p><a class="text-slate-800 font-medium " href="">Tennis</a></p>
-                          <p><a class="text-slate-800 font-medium " href="">Walking</a></p>
-                          <p><a class="text-slate-800 font-medium " href="">Jorden</a></p>
-                          <p><a class="text-slate-800 font-medium " href="">Running</a></p>
-                          <p><a class="text-slate-800 font-medium " href="">Football</a></p>
-                          <p><a class="text-slate-800 font-medium " href="">Golf</a></p>
-                          <p><a class="text-slate-800 font-medium " href="">Tennis</a></p>
-                          <p><a class="text-slate-800 font-medium " href="">Walking</a></p>
-                          <p><a class="text-slate-800 font-medium " href="">Jorden</a></p>
-                          <p><a class="text-slate-800 font-medium " href="">Running</a></p>
-                          <p><a class="text-slate-800 font-medium " href="">Football</a></p>
-                          <p><a class="text-slate-800 font-medium " href="">Golf</a></p>
-                          <p><a class="text-slate-800 font-medium " href="">Tennis</a></p>
-                          <p><a class="text-slate-800 font-medium " href="">Walking</a></p>
+                      <div class="lg:w-52 md:w-full  text-center lg:h-96  flex md: md:flex-col overflow-auto touch-auto ...">
+                          <p><a class="m-2 text-slate-800 font-medium " href="">Jorden</a></p>
+                          <p><a class="m-2 text-slate-800 font-medium " href="">Running</a></p>
+                          <p><a class="m-2 text-slate-800 font-medium " href="">Football</a></p>
+                          <p><a class="m-2 text-slate-800 font-medium " href="">Golf</a></p>
+                          <p><a class="m-2 text-slate-800 font-medium " href="">Tennis</a></p>
+                          <p><a class="m-2 text-slate-800 font-medium " href="">Walking</a></p>
+                          <p><a class="m-2 text-slate-800 font-medium " href="">Jorden</a></p>
+                          <p><a class="m-2 text-slate-800 font-medium " href="">Running</a></p>
+                          <p><a class="m-2 text-slate-800 font-medium " href="">Football</a></p>
+                          <p><a class="m-2 text-slate-800 font-medium " href="">Golf</a></p>
+                          <p><a class="m-2 text-slate-800 font-medium " href="">Tennis</a></p>
+                          <p><a class="m-2 text-slate-800 font-medium " href="">Walking</a></p>
+                          <p><a class="m-2 text-slate-800 font-medium " href="">Jorden</a></p>
+                          <p><a class="m-2 text-slate-800 font-medium " href="">Running</a></p>
+                          <p><a class="m-2 text-slate-800 font-medium " href="">Football</a></p>
+                          <p><a class="m-2 text-slate-800 font-medium " href="">Golf</a></p>
+                          <p><a class="m-2 text-slate-800 font-medium " href="">Tennis</a></p>
+                          <p><a class="m-2 text-slate-800 font-medium " href="">Walking</a></p>
+                          <p><a class="m-2 text-slate-800 font-medium " href="">Jorden</a></p>
+                          <p><a class="m-2 text-slate-800 font-medium " href="">Running</a></p>
+                          <p><a class="m-2 text-slate-800 font-medium " href="">Football</a></p>
+                          <p><a class="m-2 text-slate-800 font-medium " href="">Golf</a></p>
+                          <p><a class="m-2 text-slate-800 font-medium " href="">Tennis</a></p>
+                          <p><a class="m-2 text-slate-800 font-medium " href="">Walking</a></p>
                       </div>
                   </div>
               </div>
