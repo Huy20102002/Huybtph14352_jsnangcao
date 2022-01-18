@@ -3,10 +3,10 @@ import DataProducts from "../data/DataProduct";
 
 const producthot = {
         render() {
-            DataProducts.find((post) => post.category === 2);
+            const Result = DataProducts.filter((DataProducts) => DataProducts.category === 2);
             return /* html */ `
         <div class="grid md:grid-cols-4 gap-12 mt-5 ">
-        ${DataProducts.map((item) =>/* html */ `
+        ${Result.map((item) =>/* html */ `
         <div class="rounded-lg shadow-lg bg-white max-w-sm m-auto">
         <a href="#!">
             <img class="rounded-t-lg" src="${item.Image}" alt="" />
