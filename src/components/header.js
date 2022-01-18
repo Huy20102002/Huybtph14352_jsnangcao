@@ -27,13 +27,13 @@ const Header = {
           ></path>
         </svg>
         <a class="ml-72 pr-2" href="#">
-        <img class="w-20  lg:w-12" src="./src/image/nikelogo.png" alt="">
+        <img class="w-20  lg:w-12" src="https://rubee.com.vn/admin/webroot/upload/image/images/nike-logo.jpg" alt="">
         </a>
       </button>
             <div class="collapse navbar-collapse container m-auto flex-grow items-center" id="navbarSupportedContent1">
             <div class="pr-2 ">
             <a class=" sm:hidden md:hidden lg:block xl:block logo" href="#">
-                <img class="w-20 " src="./src/image/nikelogo.png" alt="">
+                <img class="w-20 " src="https://rubee.com.vn/admin/webroot/upload/image/images/nike-logo.jpg" alt="">
             </a>
             </div>
                 <!-- Left links -->
