@@ -8,6 +8,7 @@ import Adminnews from "./pages/admin/news/news";
 import AddNews from "./pages/admin/news/Addnews";
 import UpdateNews from "./pages/admin/news/Update_news";
 import ListProduct from "./pages/product";
+import About from "./pages/about";
 
 const router = new Navigo("/", { linksSelector: "a" });
 
@@ -30,6 +31,7 @@ router.on({
     "/news": () => {
         print(PageNews);
     },
+    "/about": () => { print(About); },
     "/admin/dashboard": () => {
         print(AdminDashboard);
     },

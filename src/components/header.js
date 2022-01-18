@@ -45,11 +45,12 @@ const Header = {
                         <a class="nav-link text-black  font-semibold" href="/product">Sản Phẩm</a
                         >
                     </li>
+                    
                     <li class="nav-item p-2">
                         <a  class="nav-link text-black  font-semibold" href="/news">Tin Tức</a>
                     </li>
                     <li class="nav-item p-2">
-                        <a class="nav-link text-black text-black font-semibold" href="#">Giới Thiệu</a
+                        <a class="nav-link text-black text-black font-semibold" href="/about">Giới Thiệu</a
                         >
                     </li>
                     <li class="nav-item p-2">
