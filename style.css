@@ -5,4 +5,7 @@
     .logo {
         display: none;
     }
+    .img_banner {
+        height: 200px;
+    }
 }

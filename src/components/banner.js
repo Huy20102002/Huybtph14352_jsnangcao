@@ -29,23 +29,23 @@ const Banner = {
           ></button>
         </div>
         <div class="carousel-inner relative w-full overflow-hidden">
-          <div class="carousel-item active float-left w-full">
+          <div class="carousel-item active float-left w-full lg:h-600">
           <a href="">
-          <img class="rounded block w-full h-600" src="https://i.ibb.co/G5B0fK4/bannernikw.png"    alt="Wild Landscape">
+          <img class="rounded block w-full h-600 img_banner"  src="https://i.ibb.co/G5B0fK4/bannernikw.png"    alt="Wild Landscape">
           </a>
           </div>
         
-          <div class="carousel-item float-left w-full">
+          <div class="carousel-item float-left w-full ">
             <img
               src="https://www.hotsellstyle.com/media/wysiwyg/infortis/slideshow/nike-banner-2.jpg"
-              class="block w-full h-600"
+              class="block w-full h-600 img_banner" 
               alt="Camera"
             />
           </div>
-          <div class="carousel-item float-left w-full">
+          <div class="carousel-item float-left w-full ">
             <img
               src="https://bizweb.dktcdn.net/100/413/756/collections/jordan-2.jpg?v=1617462460240"
-              class="block w-full h-600"
+              class="block w-full h-600 img_banner"
               alt="Exotic Fruits"
             />
           </div>
