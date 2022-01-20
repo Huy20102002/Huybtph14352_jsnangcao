@@ -56,6 +56,10 @@ const Header = {
                     <li class="nav-item p-2">
                         <a class="nav-link text-black text-black font-semibold" href="#">Liên Hệ</a>
                     </li>
+                    <li class="nav-item p-2">
+                    <a class="nav-link text-black text-black font-semibold" href="/admin/dashboard">admin</a>
+                </li>
+                    
                 </ul>
                 <div class="search">
                 <input class="w-52 bg-gray-200 appearance-none border-2 border-gray-200 rounded  py-2 px-2 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-black-500" id="inline-password" type="password" placeholder="Tìm kiếm.....">
