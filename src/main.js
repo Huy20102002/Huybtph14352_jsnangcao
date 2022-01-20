@@ -13,8 +13,8 @@ import DetailsProduct from "./pages/DetailsProduct";
 
 const router = new Navigo("/", { linksSelector: "a" });
 
-const print = async(content, id) => {
-    document.querySelector("#app").innerHTML = await content.render(id);
+const print = (content, id) => {
+    document.querySelector("#app").innerHTML = content.render(id);
 };
 
 router.on({
