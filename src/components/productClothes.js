@@ -8,7 +8,7 @@ const ProductClothes = {
         <div class="grid md:grid-cols-4 gap-12 mt-5 ">
         ${Result.map((item) => `
         <div class="rounded-lg shadow-lg bg-white max-w-sm m-auto">
-        <a href="#!">
+        <a href="/product/${item.id}">
             <img class="rounded-t-lg" src="${item.Image}" alt="" />
         </a>
         <div class="p-6">

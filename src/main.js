@@ -9,11 +9,12 @@ import AddNews from "./pages/admin/news/Addnews";
 import UpdateNews from "./pages/admin/news/Update_news";
 import ListProduct from "./pages/product";
 import About from "./pages/about";
+import DetailsProduct from "./pages/DetailsProduct";
 
 const router = new Navigo("/", { linksSelector: "a" });
 
-const print = (content, id) => {
-    document.querySelector("#app").innerHTML = content.render(id);
+const print = async(content, id) => {
+    document.querySelector("#app").innerHTML = await content.render(id);
 };
 
 router.on({
@@ -28,6 +29,7 @@ router.on({
     "/product": () => {
         print(ListProduct);
     },
+    "/product/:id": ({ data }) => { print(DetailsProduct, data.id); },
     "/news": () => {
         print(PageNews);
     },
@@ -46,3 +48,8 @@ router.on({
 });
 
 router.resolve();
+
+// const API = "https://api.covidtracking.com/v1/us/daily.json";
+// fetch(API)
+//     .then((response) => response.json())
+//     .then((data) => console.log(data));

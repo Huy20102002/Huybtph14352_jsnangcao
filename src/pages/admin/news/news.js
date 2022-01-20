@@ -2,7 +2,6 @@ import NavbarAdmin from "../../../components/NavbarAdmin";
 import DataProducts from "../../../data/DataProduct";
 
 const Adminnews = {
-
         render() {
             return /* html */ `
         ${NavbarAdmin.render()}
