@@ -316,5 +316,8 @@ const AdminDashboard = {
  </main>
         `;
     },
+    afterRender() {
+        NavbarAdmin.afterRender();
+    },
 };
 export default AdminDashboard;

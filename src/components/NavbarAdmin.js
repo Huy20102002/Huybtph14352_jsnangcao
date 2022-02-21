@@ -27,6 +27,10 @@ const NavbarAdmin = {
                 <ul class="navbar-nav flex flex-col pl-0 list-style-none mr-auto">
                     <li class="nav-item p-2">
                         <a class="nav-link text-black font-semibold" href="/admin/dashboard">Thống Kê</a>
+                    </li>  
+                    <li class="nav-item p-2">
+                    <a class="nav-link text-black  font-semibold" href="/admin/order">Quản Lý Đơn Hàng</a
+                    >
                     </li>
                     <li class="nav-item p-2">
                         <a class="nav-link text-black  font-semibold" href="/admin/news">Quản Lý Tin Tức</a
@@ -34,15 +38,17 @@ const NavbarAdmin = {
                     </li>
                     
                     <li class="nav-item p-2">
-                        <a  class="nav-link text-black  font-semibold" href="/admin/news/add">Quản Lý Danh Mục</a>
+                        <a  class="nav-link text-black  font-semibold" href="/admin/category">Quản Lý Danh Mục</a>
                     </li>
                     <li class="nav-item p-2">
-                        <a class="nav-link text-black text-black font-semibold" href="#">Quản Lý Sản Phẩm</a
+                        <a class="nav-link text-black font-semibold" href="/admin/products">Quản Lý Sản Phẩm</a
                         >
                     </li>
                     <li class="nav-item p-2">
-                        <a class="nav-link text-black text-black font-semibold" href="#">Quản Lý Bình Luận</a>
+                        <a class="nav-link text-black font-semibold" href="#">Quản Lý Bình Luận</a>
                     </li>
+                     <li class="nav-item p-2" id = "users">
+                     </li>
                 </ul>
             </div>
 
@@ -50,6 +56,21 @@ const NavbarAdmin = {
         
     </nav>
         `;
+    },
+    afterRender() {
+        const { username } = JSON.parse(localStorage.getItem("user"));
+        const users = document.querySelector("#users");
+        if (username) {
+            users.innerHTML = ` <a href="/profile" class="nav-link text-black font-semibold">Xin chào: ${username}</a>
+            <button  id="logout" class="nav-link text-black font-semibold">Đăng Xuất</button>   
+         `;
+        }
+        const logout = document.querySelector("#logout");
+        logout.addEventListener("click", () => {
+            window.localStorage.clear();
+            window.localStorage.removeItem("user");
+            document.location.href = "/";
+        });
     },
 };
 export default NavbarAdmin;

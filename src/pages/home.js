@@ -7,7 +7,7 @@ import Header from "../components/header";
 import Footer from "../components/footer";
 
 const HomePage = {
-    render() {
+    async render() {
         return /* html */ `
         <header>
          ${Header.render()}
@@ -22,7 +22,7 @@ const HomePage = {
         <h1 class="text-slate-800 text-xl font-medium mt-5">Sản Phẩm Nổi Bật</h1>
     </div>
     <div class="details-product">
-       ${producthot.render()}
+       ${await producthot.render()}
     </div>
 </div>
 <div class="product-clothes">
@@ -30,7 +30,7 @@ const HomePage = {
     <h1 class="text-slate-800 text-xl font-medium mt-5">Quần áo</h1>
 </div>
 <div class="details-product">
- ${ProductClothes.render()}
+  ${await ProductClothes.render()}
 </div>
 </div>
 <div class="product-shoe">
@@ -38,7 +38,7 @@ const HomePage = {
     <h1 class="text-slate-800 text-xl font-medium mt-5">Giày Dép</h1>
 </div>
 <div class="details-product">
-${ProductShoes.render()}
+${await ProductShoes.render()}
 </div>
 </div>
  </div>
@@ -47,6 +47,9 @@ ${ProductShoes.render()}
     ${Footer.render()}
     </footer>
         `;
+    },
+    afterRender() {
+        Header.afterRender();
     },
 };
 

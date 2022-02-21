@@ -1,0 +1,163 @@
+{
+  "posts": [
+    {
+      "id": 8,
+      "title": "bài viết mới",
+      "shortDescription": "undefined",
+      "content": "ádasd",
+      "image": "http://res.cloudinary.com/fpt-com/image/upload/v1645153633/z5o0mo0j974r2oucik27.png"
+    },
+    {
+      "title": "Bài viết mới được cập nhật 10:37",
+      "content": "fdkldfjdaskldfklsdkksdkdfk",
+      "image": "http://res.cloudinary.com/fpt-com/image/upload/v1644809882/ukc1tucfneiopyv78hok.png",
+      "id": 12
+    },
+    {
+      "id": 13,
+      "title": "bài mới",
+      "shortDescription": "ádasdasd",
+      "content": "<p>ádasd</p>\n",
+      "image": "http://res.cloudinary.com/fpt-com/image/upload/v1645198910/zsjlc4pjgw3zgftskzos.png"
+    }
+  ],
+  "category": [
+    {
+      "name": "Giầy Dép",
+      "id": 1
+    },
+    {
+      "name": "Quần Áo",
+      "id": 2
+    },
+    {
+      "name": "Nike Jordan",
+      "id": 3
+    }
+  ],
+  "products": [
+    {
+      "name": "áo trắng",
+      "content": " Some quick example text to build on the card title and make up the bulk of the card's content.",
+      "price": "11111",
+      "id_Cate": "1",
+      "image": "https://static.nike.com/a/images/c_limit,w_592,f_auto/t_product_v1/03cf1f1c-018e-4357-b326-7dbef43643d7/sportswear-style-essentials-woven-button-up-top-4dqFTx.png",
+      "id": 7
+    },
+    {
+      "id": 8,
+      "id_Cate": 1,
+      "name": "Card title",
+      "image": "https://static.nike.com/a/images/c_limit,w_592,f_auto/t_product_v1/2e325bde-af48-45fe-99c7-dc6a9cac4e03/standard-issue-basketball-pullover-hoodie-Br7cCg.png",
+      "price": 11111,
+      "content": " Some quick example text to build on the card title and make up the bulk of the card's content."
+    },
+    {
+      "id": 9,
+      "id_Cate": 2,
+      "name": "Card title",
+      "image": "https://static.nike.com/a/images/c_limit,w_592,f_auto/t_product_v1/0b3b5767-98a4-41de-a859-f058589ea1b7/jordan-jumpman-long-sleeve-t-shirt-7hzHMs.png",
+      "price": 11111,
+      "content": "Some quick example text to build on the card title and make up the bulk of the card's content."
+    },
+    {
+      "name": "okok",
+      "content": "34",
+      "price": "34",
+      "id_Cate": "1",
+      "image": "http://res.cloudinary.com/fpt-com/image/upload/v1645196395/fpvgnub4gpkvtbenkqzl.png",
+      "id": 10
+    },
+    {
+      "name": "54354",
+      "content": "4534345",
+      "price": "4545",
+      "id_Cate": "1",
+      "image": "http://res.cloudinary.com/fpt-com/image/upload/v1645196455/axhpkowx6ibwocl7w68b.png",
+      "id": 11
+    },
+    {
+      "name": "Sản Phâm giep",
+      "content": "<p>334</p>\n",
+      "price": "1221",
+      "id_Cate": "1",
+      "image": "http://res.cloudinary.com/fpt-com/image/upload/v1645350727/hbyp4rzpijavxdcched2.png",
+      "id": 12
+    }
+  ],
+  "products_details": [
+    {
+      "id": "s",
+      "id_product": "sd",
+      "image_details": "SD",
+      "color": "red",
+      "size": "xl"
+    }
+  ],
+  "users": [
+    {
+      "email": "0338898903@gmail.com",
+      "password": "$2a$10$Vaxu9Bt6AKHx8GzOTRja1e.CC7EyvOstVmq8YpJx7qIw7KPsxt37u",
+      "username": "Huy",
+      "id": 1
+    },
+    {
+      "email": "huy@gmail.com",
+      "password": "$2a$10$mb5BqdGzuSwrervqFyEqXu8qUWpaf7awtq.pMGYym65A//FI.K3N6",
+      "username": "huy",
+      "id": 2
+    },
+    {
+      "email": "thienth@gmail.com",
+      "password": "$2a$10$iGj6vQ2UxzLJuCWm3sfFZO9OhixHIScZIT4idsWrBHJi8yfVqPxYu",
+      "username": "thienth@gmail.com",
+      "id": 3
+    }
+  ],
+  "Payment": [
+    {
+      "id_User": 1,
+      "Username": "bhuy31333@gmail.com",
+      "Phone": "0338898903",
+      "Email": "huy@gmail.com",
+      "AddRess": "Thôn 1, Xã Hiệp Hòa, Tx Quảng Yên",
+      "Massage": "",
+      "total": "63333",
+      "time_order": "21-2-2022 9:36:40",
+      "Status": "2",
+      "id": 1
+    }
+  ],
+  "Order": [
+    {
+      "id_Payment": 1,
+      "id_User": 1,
+      "id_Product": 7,
+      "image": "https://static.nike.com/a/images/c_limit,w_592,f_auto/t_product_v1/03cf1f1c-018e-4357-b326-7dbef43643d7/sportswear-style-essentials-woven-button-up-top-4dqFTx.png",
+      "name": "áo trắng",
+      "quantity": 1,
+      "price": "11111",
+      "id": 1
+    },
+    {
+      "id_Payment": 1,
+      "id_User": 1,
+      "id_Product": 8,
+      "image": "https://static.nike.com/a/images/c_limit,w_592,f_auto/t_product_v1/2e325bde-af48-45fe-99c7-dc6a9cac4e03/standard-issue-basketball-pullover-hoodie-Br7cCg.png",
+      "name": "Card title",
+      "quantity": 1,
+      "price": 11111,
+      "id": 2
+    },
+    {
+      "id_Payment": 1,
+      "id_User": 1,
+      "id_Product": 9,
+      "image": "https://static.nike.com/a/images/c_limit,w_592,f_auto/t_product_v1/0b3b5767-98a4-41de-a859-f058589ea1b7/jordan-jumpman-long-sleeve-t-shirt-7hzHMs.png",
+      "name": "Card title",
+      "quantity": 1,
+      "price": 11111,
+      "id": 3
+    }
+  ]
+}

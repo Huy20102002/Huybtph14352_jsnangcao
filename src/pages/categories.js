@@ -1,17 +1,18 @@
 import toastr from "toastr";
 import Header from "../components/header";
 import Footer from "../components/footer";
-import {get, getAll } from "../api/products";
 import { getAllCate } from "../api/category";
+import { getAll, get } from "../api/products";
 import { addTocart } from "../utils/cart";
 import "toastr/build/toastr.min.css";
 
-const ListProduct = {
-        async render() {
-            const { data } = await getAll();
-            const datacate = await getAllCate();
+const Categories = {
+        async render(id) {
+            const { data } = await getAllCate(id);
+            const dataProduct = await getAll();
+            const productclothes = dataProduct.data.filter((products) => products.id_Cate === +id);
             return /* html */ `
-      <header>
+        <header>
       ${Header.render()}
       </header>
       <main>
@@ -23,7 +24,7 @@ const ListProduct = {
                 <div class="left-listproduct">
                     <div class="title-listproduct leading-9 ">
                         <div class="lg:w-52 md:w-full  text-center lg:h-96  flex md: md:flex-col overflow-auto touch-auto ...">
-                        ${datacate.data.map((itemcate) => `
+                        ${data.map((itemcate) => `
                         <p><a class="m-2 text-slate-800 font-medium " href="/category/${itemcate.id}">${itemcate.name}</a></p>
                         `).join("")}    
                         </div>
@@ -38,7 +39,7 @@ const ListProduct = {
                     <div class="main-right-product">
                         <div class="details-product">
                             <div class="grid md:grid-cols-4 gap-12 mt-5 ">
-                            ${data.map((item) => /* html */ `
+                            ${productclothes.map((item) => /* html */ `
                             <div class="rounded-lg shadow-lg bg-white max-w-sm m-auto">
                             <a href="product/${item.id}">
                                 <img class="rounded-t-lg" src="${item.image}" alt="" />
@@ -72,15 +73,15 @@ const ListProduct = {
         const buttonAddCart = document.querySelectorAll("#addTocart");
         buttonAddCart.forEach((btn) => {
             const { id } = btn.dataset;
-
+            console.log(id);
             btn.addEventListener("click", async (e) => {
                 e.preventDefault();
                 const { data } = await get(id);
                 addTocart({ ...data, quantity: 1 }, () => {
-                    toastr.success("Thêm sản phẩm vào giỏ hàng thành công");
+                    toastr.success("Thêm sản phẩm vào giỏ hàng thành công !");
                 });
             });
         });
     },
 };
-export default ListProduct;
+export default Categories;
