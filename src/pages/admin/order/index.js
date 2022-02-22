@@ -3,6 +3,7 @@ import { data } from "jquery";
 import NavbarAdmin from "../../../components/NavbarAdmin";
 import { getPayment, getPaymentid, updatePayment } from "../../../api/payment";
 import { getorder, getidorder } from "../../../api/order";
+import { reRender } from "../../../utils";
 
 const Order = {
         async render() {
@@ -25,7 +26,7 @@ const Order = {
                 </tr>
               </thead>
             <tbody class="text-gray-700">
-            ${data.map((item) => /* html */ `
+            ${data.map((item, index) => /* html */ `
             <tr>
             <td class="text-left py-3 px-4">${item.Username}</td>
             <td class="text-left py-3 px-4">${item.Phone}</td>
@@ -33,21 +34,19 @@ const Order = {
             <td class="text-left py-3 px-4">${item.time_order}</td>
             <td class="text-left py-3 px-4">
             <div class="col-span-6 sm:col-span-4">
-           <form id="confirmorder">
-           <select id="status" class="mt-1 block w-full py-2 px-2 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
-           <option value="1" ${item.Status === 1 ? "selected" : ""}>Đang Xử Lí</option>
-           <option value="2" ${item.Status === 2 ? "selected" : ""}>Đã xác nhận</option>
-           <option value="3" ${item.Status === 3 ? "selected" : ""}>Đang giao hàng</option>
-           <option value="4" ${item.Status === 4 ? "selected" : ""}>Đã nhận hàng</option>
-           <option value="5" ${item.Status === 5 ? "selected" : ""}>Đơn hàng bị hủy</option>
-         </select>
-         <button data-id="${item.id}" type="button" class="btn-confirm p-1 bg-blue-500 text-gray-100 text-xs rounded-lg  border-blue-300">Xác nhận</button>
-           </form>
+           <select id="status${index + 1}" class="mt-1 block w-full py-2 px-2 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+           <option value="1" ${+item.Status === 1 ? `selected` : ``}>Đang Xử Lí</option>
+           <option value="2" ${+item.Status === 2 ? `selected` : ``}>Đã xác nhận</option>
+           <option value="3" ${+item.Status === 3 ? `selected` : ``}>Đang giao hàng</option>
+           <option value="4" ${+item.Status === 4 ? `selected` : ``}>Đã nhận hàng</option>
+           <option value="5" ${+item.Status === 5 ? `selected` : ``}>Đơn hàng bị hủy</option>
+           </select>
+         <button data-id="${item.id}" type="submit" class="btn-confirm p-1 bg-blue-500 text-gray-100 text-xs rounded-lg  border-blue-300">Xác nhận</button>
           </div>
             </td>
             <td class="text-left py-3 px-4">
             <button data-id="${item.id}" class="btn-delete p-2 pl-5 pr-5 bg-blue-500 text-gray-100 text-lg rounded-lg  border-blue-300">Xóa</button>
-            <button data-id="${item.id}" id ="open" class="btn-details p-2 pl-5 pr-5 bg-red-500 text-gray-100 text-lg rounded-lg  border-blue-300">Chi Tiêt</button>
+            <button data-id="${item.id}" id="open${index + 1}" class=" btn-details p-2 pl-5 pr-5 bg-red-500 text-gray-100 text-lg rounded-lg  border-blue-300">Chi Tiêt</button>
             </td>
           </tr>
             `)
@@ -106,28 +105,28 @@ const Order = {
     },
     afterRender() {
         NavbarAdmin.afterRender();
-        const open = document.querySelector("#open");
-        const close = document.querySelector("#close");
-        const closex = document.querySelector("#closex");
-
-        open.addEventListener("click", () => {
-            const modal = document.querySelector("#modal");
-            modal.classList.remove("hidden");
-        });
-        close.addEventListener("click", () => {
-            const modal = document.querySelector("#modal");
-            modal.classList.add("hidden");
-        });
-        closex.addEventListener("click", () => {
-            const modal = document.querySelector("#modal");
-            modal.classList.add("hidden");
-        });
 
         const DeleteElement = document.querySelectorAll(".btn-delete");
         const DetailsElement = document.querySelectorAll(".btn-details");
         const confirmElement = document.querySelectorAll(".btn-confirm");
-        DetailsElement.forEach((datadt) => {
+        DetailsElement.forEach((datadt, index) => {
             datadt.addEventListener("click", async () => {
+                const open = document.querySelector(`#open${index + 1}`);
+                const close = document.querySelector("#close");
+                const closex = document.querySelector("#closex");
+
+                open.addEventListener("click", () => {
+                    const modal = document.querySelector("#modal");
+                    modal.classList.remove("hidden");
+                });
+                close.addEventListener("click", () => {
+                    const modal = document.querySelector("#modal");
+                    modal.classList.add("hidden");
+                });
+                closex.addEventListener("click", () => {
+                    const modal = document.querySelector("#modal");
+                    modal.classList.add("hidden");
+                });
                 const { id } = datadt.dataset;
                 const { data } = await getorder();
                 const datapayment = await getPaymentid(id);
@@ -144,13 +143,10 @@ const Order = {
                 document.querySelector("#price").value = datapayment.data.total;
             });
         });
-        confirmElement.forEach((btn) => {
+        confirmElement.forEach((btn, index) => {
             const { id } = btn.dataset;
-            const formconfirm = document.querySelector("#confirmorder");
-            formconfirm.addEventListener("submit", async (e) => {
+            btn.addEventListener("click", async () => {
                 const datapayment = await getPaymentid(id);
-
-                e.preventDefault();
                 updatePayment(id, {
                     id_User: datapayment.data.id_User,
                     Username: datapayment.data.Username,
@@ -160,7 +156,9 @@ const Order = {
                     Massage: datapayment.data.Massage,
                     total: datapayment.data.total,
                     time_order: datapayment.data.time_order,
-                    Status: document.querySelector("#status").value,
+                    Status: document.querySelector(`#status${index + 1}`).value,
+                }).then(() => {
+                    reRender(Order, "#app");
                 });
             });
         });

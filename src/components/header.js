@@ -1,3 +1,4 @@
+import { search } from "../api/products";
 import { getLocalStorage, reRender } from "../utils";
 import { getCountCart } from "../utils/cart";
 
@@ -21,8 +22,7 @@ const Header = {
         <div class="container-fluid w-full flex flex-wrap items-center justify-between px-6">
             <button class="flex  navbar-toggler text-black-200 border-0 hover:shadow-none hover:no-underline py-2 px-2.5 bg-transparent focus:outline-none focus:ring-0 focus:shadow-none focus:no-underline" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent1"
                 aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-        <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="bars" class="w-6" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"
-        >
+        <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="bars" class="w-6" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">
           <path
             fill="currentColor"
             d="M16 132h416c8.837 0 16-7.163 16-16V76c0-8.837-7.163-16-16-16H16C7.163 60 0 67.163 0 76v40c0 8.837 7.163 16 16 16zm0 160h416c8.837 0 16-7.163 16-16v-40c0-8.837-7.163-16-16-16H16c-8.837 0-16 7.163-16 16v40c0 8.837 7.163 16 16 16zm0 160h416c8.837 0 16-7.163 16-16v-40c0-8.837-7.163-16-16-16H16c-8.837 0-16 7.163-16 16v40c0 8.837 7.163 16 16 16z"
@@ -60,11 +60,13 @@ const Header = {
                     </li>
                 </ul>
                 <div class="search">
-                <input class="w-52 bg-gray-200 appearance-none border-2 border-gray-200 rounded  py-2 px-2 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-black-500" id="" type="text" placeholder="Tìm kiếm.....">
-                <button class="flex-shrink-0 bg-gray-500 hover:bg-gray-700 border-gray-500 hover:border-gray-700 text-sm  text-white py-2 px-2 rounded" type="button">
-                    <i class="fas fa-search"></i>
-                  </button>
-              </div>
+                  <form id="search" >
+                  <input class="w-52 bg-gray-200 appearance-none border-2 border-gray-200 rounded  py-2 px-2 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-black-500" id="key_search" type="search" placeholder="Tìm kiếm.....">
+                  <button type="submit" class="flex-shrink-0 bg-gray-500 hover:bg-gray-700 border-gray-500 hover:border-gray-700 text-sm  text-white py-2 px-2 rounded" >
+                      <i class="fas fa-search"></i>
+                    </button>
+                  </form>
+               </div>
               <div id="userlogin" class="btn flex">
               ${getLocalStorage("user") ? `<a href="/cart" class="flex h-10 ml-2 items-center px-2 rounded-lg border border-gray-200 hover:border-gray-300 focus:outline-none hover:shadow-inner">
               <svg class="h-6 w-6 leading-none text-gray-300 stroke-current" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -85,14 +87,23 @@ const Header = {
     },
     afterRender() {
         const { username } = JSON.parse(localStorage.getItem("user"));
-        document.querySelector("#info").innerHTML = `Xin chào: ${username}`;
+        document.querySelector("#info").innerHTML = `<i class="fal fa-user-alt"></i> ${username}`;
         const logout = document.querySelector("#logout");
+        const Search = document.querySelector("#search");
         if (logout) {
             logout.addEventListener("click", () => {
                 window.localStorage.removeItem("user");
                 reRender(Header, "header");
             });
         }
+        Search.addEventListener("submit", async (e) => {
+            e.preventDefault();
+            const Keysearch = document.querySelector("#key_search").value;
+            const { data } = await search(Keysearch);
+            if (data) {
+                document.location.href = `/product/search/${Keysearch}`;
+            }
+        });
     },
 };
 

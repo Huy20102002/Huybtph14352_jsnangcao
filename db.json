@@ -33,6 +33,10 @@
     {
       "name": "Nike Jordan",
       "id": 3
+    },
+    {
+      "name": "Quần Áo",
+      "id": 9
     }
   ],
   "products": [
@@ -117,28 +121,42 @@
   "Payment": [
     {
       "id_User": 1,
-      "Username": "bhuy31333@gmail.com",
+      "Username": "huybtph14352",
       "Phone": "0338898903",
-      "Email": "huy@gmail.com",
+      "Email": "bhuy20102002@gmail.com",
+      "AddRess": "Thôn 1, Xã Hiệp Hòa, Tx Quảng Yên",
+      "Massage": "olo",
+      "total": "41111",
+      "time_order": "21-2-2022 18:23:14",
+      "Status": "1",
+      "id": 1
+    },
+    {
+      "id_User": 1,
+      "Username": "jhjhj",
+      "Phone": "0338898903",
+      "Email": "huybtph14352@fpt.edu.vn",
       "AddRess": "Thôn 1, Xã Hiệp Hòa, Tx Quảng Yên",
       "Massage": "",
-      "total": "63333",
-      "time_order": "21-2-2022 9:36:40",
+      "total": "30034",
+      "time_order": "21-2-2022 18:23:42",
       "Status": "2",
-      "id": 1
+      "id": 2
+    },
+    {
+      "id_User": 1,
+      "Username": "Vu Luc",
+      "Phone": "0493489348398",
+      "Email": "bhuy01638898903@gmail.com",
+      "AddRess": "dfjlksdfksdfjksdfsdfjksdf",
+      "Massage": "",
+      "total": "35766",
+      "time_order": "21-2-2022 18:26:27",
+      "Status": "3",
+      "id": 3
     }
   ],
   "Order": [
-    {
-      "id_Payment": 1,
-      "id_User": 1,
-      "id_Product": 7,
-      "image": "https://static.nike.com/a/images/c_limit,w_592,f_auto/t_product_v1/03cf1f1c-018e-4357-b326-7dbef43643d7/sportswear-style-essentials-woven-button-up-top-4dqFTx.png",
-      "name": "áo trắng",
-      "quantity": 1,
-      "price": "11111",
-      "id": 1
-    },
     {
       "id_Payment": 1,
       "id_User": 1,
@@ -147,17 +165,37 @@
       "name": "Card title",
       "quantity": 1,
       "price": 11111,
+      "id": 1
+    },
+    {
+      "id_Payment": 2,
+      "id_User": 1,
+      "id_Product": 10,
+      "image": "http://res.cloudinary.com/fpt-com/image/upload/v1645196395/fpvgnub4gpkvtbenkqzl.png",
+      "name": "okok",
+      "quantity": 1,
+      "price": "34",
       "id": 2
     },
     {
-      "id_Payment": 1,
+      "id_Payment": 3,
       "id_User": 1,
-      "id_Product": 9,
-      "image": "https://static.nike.com/a/images/c_limit,w_592,f_auto/t_product_v1/0b3b5767-98a4-41de-a859-f058589ea1b7/jordan-jumpman-long-sleeve-t-shirt-7hzHMs.png",
-      "name": "Card title",
+      "id_Product": 12,
+      "image": "http://res.cloudinary.com/fpt-com/image/upload/v1645350727/hbyp4rzpijavxdcched2.png",
+      "name": "Sản Phâm giep",
       "quantity": 1,
-      "price": 11111,
+      "price": "1221",
       "id": 3
+    },
+    {
+      "id_Payment": 3,
+      "id_User": 1,
+      "id_Product": 11,
+      "image": "http://res.cloudinary.com/fpt-com/image/upload/v1645196455/axhpkowx6ibwocl7w68b.png",
+      "name": "54354",
+      "quantity": 1,
+      "price": "4545",
+      "id": 4
     }
   ]
 }

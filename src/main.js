@@ -20,6 +20,8 @@ import UpdateCategory from "./pages/admin/category/UpdateCate";
 import CartDetails from "./pages/cart";
 import Categories from "./pages/categories";
 import Order from "./pages/admin/order";
+import Search from "./pages/search";
+import Profile from "./pages/profile";
 
 const router = new Navigo("/", { linksSelector: "a", hash: true });
 
@@ -46,10 +48,12 @@ router.on("/admin/*/", () => {}, {
 router.on({
     "/": () => { print(HomePage); },
     "/home": () => { print(HomePage); },
+    "/profile": () => { print(Profile); },
     "/signup": () => { print(Signup); },
     "/signin": () => { print(Signin); },
     "/product": () => { print(ListProduct); },
     "/product/:id": ({ data }) => { print(DetailsProduct, data.id); },
+    "/product/search/:keyword": ({ data }) => { print(Search, data.keyword); },
     "/news": () => { print(PageNews); },
     "/about": () => { print(About); },
     "/cart": () => { print(CartDetails); },

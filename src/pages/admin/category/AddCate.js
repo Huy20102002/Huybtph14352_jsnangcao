@@ -1,3 +1,5 @@
+import $ from "jquery-validation";
+import validate from "jquery-validation";
 import NavbarAdmin from "../../../components/NavbarAdmin";
 import { addCate } from "../../../api/category";
 import { reRender } from "../../../utils";
@@ -20,16 +22,16 @@ const AddCate = {
       <main class="container m-auto w-full">
     <div class="md:grid md:grid-cols-3 md:gap-6 pt-5">
         <div class="mt-5 md:mt-0 md:col-span-2">
-            <form action="" method="POST" id="form-add-cate" enctype="multipart/form-data">
+            <form  id="form-add-cate">
                 <div class="shadow sm:rounded-md sm:overflow-hidden">
                     <div class="px-4 py-5 bg-white space-y-6 sm:p-6">
                         <div class="grid grid-cols-3 gap-6">
                             <div class="col-span-3 sm:col-span-2">
-                                <label for="company-website" class="block text-sm font-medium text-gray-700">
+                                <label class="block text-sm font-medium text-gray-700">
                                Tên Danh Mục
                                </label>
                                 <div class="mt-1 flex rounded-md shadow-sm">
-                                    <input type="text" name="company-website" id="name-post" class="focus:ring-indigo-500 focus:border-indigo-500 focus:outline-none h-8 flex-1 block w-full rounded-none  rounded-r-md sm:text-sm border-gray-300">
+                                    <input type="text"  name="name-post" id="name-post" class="focus:ring-indigo-500 focus:border-indigo-500 focus:outline-none h-8 flex-1 block w-full rounded-none  rounded-r-md sm:text-sm border-gray-300">
                                 </div>
                             </div>
                         </div>
@@ -50,14 +52,29 @@ const AddCate = {
     },
     afterRender() {
         NavbarAdmin.afterRender();
-        const formAddCate = document.querySelector("#form-add-cate");
-        formAddCate.addEventListener("submit", (e) => {
-            e.preventDefault();
-            addCate({
-                name: document.querySelector("#name-post").value,
-            }).then(() => {
-                reRender(AdminCate, "#app");
-            });
+
+        $("#form-add-cate").validate({
+            rules: {
+                "name-post": {
+                    required: true,
+                },
+            },
+            massages: {
+
+                "name-post": {
+                    required: "Không để trống trường hợp này",
+                },
+            },
+            submitHandler: () => {
+                async function HandlerAddpost() {
+                    addCate({
+                        name: document.querySelector("#name-post").value,
+                    }).then(() => {
+                        reRender(AdminCate, "#app");
+                    });
+                }
+                HandlerAddpost();
+            },
         });
     },
 };

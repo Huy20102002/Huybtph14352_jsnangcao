@@ -4,7 +4,6 @@ import Header from "../../components/header";
 import Footer from "../../components/footer";
 import { getLocalStorage, reRender } from "../../utils";
 import { AddPayment } from "../../api/payment";
-
 // eslint-disable-next-line no-unused-vars
 import {
     increaseQuantityFromCart,
@@ -12,14 +11,14 @@ import {
     removeItemFromCart,
     getTotalPriceproduct,
     shippingCart,
-
 } from "../../utils/cart";
 import "toastr/build/toastr.min.css";
 import { AddOrder } from "../../api/order";
 
 const CartDetails = {
-        async render() {
-            const data = await getLocalStorage("cart");
+        render() {
+            const data = getLocalStorage("cart");
+            console.log(data);
             return /* html */ `
         <!-- component -->
           <header>${Header.render()}</header>
@@ -45,41 +44,40 @@ const CartDetails = {
                 </thead>
                 <tbody>
                   ${data.map((item) => /* html */ `
-                              <tr>
-                              <td class="hidden pb-4 md:table-cell">
-                                  <a href="#">
-                                  <img src="${item.image}" class="w-20 rounded" alt="Thumbnail">
-                                  </a>
-                              </td>
-                              <td>
-                                  <p class="mb-2 md:ml-4">${item.name}</p>
-                                      <button type="submit" data-id="${item.id}" class="btn btn-remove" class="text-gray-700 md:ml-4">
-                                      <small>(Xóa sản phẩm)</small>
-                                      </button>
-                                  </a>
-                              </td>
-                              <td class="justify-center md:justify-end flex md:flex mt-6">
-                              <button data-id="${item.id}" class="btn bg-stone-900 rounded text-white p-1 mx-2 btn btn-decrease">Giảm</button>
-                                  <div class="w-20 h-10">
-                                  <div class="relative flex flex-row w-full h-8">
-                                  <input type="number" value="${item.quantity}" min="0" id="cart_quantity" class=" w-full font-semibold text-center text-gray-700 bg-gray-200 outline-none focus:outline-none hover:text-black focus:text-black" />
-                                  </div>
-                                  </div>
-                              <button data-id="${item.id}" class="btn bg-stone-900 rounded text-white p-1 mx-2 btn btn-increase">Tăng</button>
+                  <tr>
+                  <td class="hidden pb-4 md:table-cell">
+                      <a href="#">
+                      <img src="${item.image}" class="w-20 rounded" alt="Thumbnail">
+                      </a>
+                  </td>
+                  <td>
+                      <p class="mb-2 md:ml-4">${item.name}</p>
+                          <button type="submit" data-id="${item.id}" class="btn btn-remove" class="text-gray-700 md:ml-4">
+                          <small>(Xóa sản phẩm)</small>
+                          </button>
+                      </a>
+                  </td>
+                  <td class="justify-center md:justify-end flex md:flex mt-6">
+                  <button data-id="${item.id}" class="btn bg-stone-900 rounded text-white p-1 mx-2 btn btn-decrease">Giảm</button>
+                      <div class="w-20 h-10">
+                      <div class="relative flex flex-row w-full h-8">
+                      <input type="number" value="${item.quantity}" min="0" id="cart_quantity" class=" w-full font-semibold text-center text-gray-700 bg-gray-200 outline-none focus:outline-none hover:text-black focus:text-black" />
+                      </div>
+                      </div>
+                  <button data-id="${item.id}" class="btn bg-stone-900 rounded text-white p-1 mx-2 btn btn-increase">Tăng</button>
 
-                              </td>
-                              <td class="hidden text-right md:table-cell">
-                                  <span class="text-sm lg:text-base font-medium">
-                                  ${item.price}
-                                  </span>
-                              </td>
-                              <td class="text-right">
-                                  <span id="totals" class="text-sm lg:text-base font-medium">
-                                  ${item.price * item.quantity}    
-                                  </span>
-                              </td>
-                              </tr> 
-                              `).join("")}  
+                  </td>
+                  <td class="hidden text-right md:table-cell">
+                      <span class="text-sm lg:text-base font-medium">
+                      ${item.price}
+                      </span>
+                  </td>
+                  <td class="text-right">
+                      <span id="totals" class="text-sm lg:text-base font-medium">
+                      ${item.price * item.quantity}    
+                      </span>
+                  </td>
+                  </tr>`).join("")}  
                 </tbody>
                 </table>
                 <hr class="pb-6 mt-6">
@@ -164,12 +162,14 @@ const CartDetails = {
         Header.afterRender();
         const formPayMent = document.querySelector("#form-info-payment");
         const today = new Date();
-        const date = `${today.getDate()}-${today.getMonth() + 1}-${today.getFullYear()}`;
+        const date = `${today.getDate()}-${
+            today.getMonth() + 1
+        }-${today.getFullYear()}`;
         const time = `${today.getHours()}:${today.getMinutes()}:${today.getSeconds()}`;
         const dateTime = `${date} ${time}`;
         const ButtonElement = document.querySelectorAll(".btn");
-        const Cart = await getLocalStorage("cart");
-        const User = await getLocalStorage("user");
+        const Cart = getLocalStorage("cart");
+        const User = getLocalStorage("user");
         formPayMent.addEventListener("submit", async (e) => {
             e.preventDefault();
             const { data } = await AddPayment({

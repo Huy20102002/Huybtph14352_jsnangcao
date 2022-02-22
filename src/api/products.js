@@ -23,5 +23,10 @@ export const removeProduct = (id) => {
 };
 export const UpdateProduct = (id, post) => {
     const url = `/products/${id}`;
+
     return instance.put(url, post);
+};
+export const search = (post) => {
+    const url = `/products/?q=${post}`;
+    return instance.get(url);
 };
