@@ -21,3 +21,7 @@ export const updatePayment = (id, post) => {
     const url = `/payment/${id}`;
     return instance.put(url, post);
 };
+export const deletePayandorder = (id) => {
+    const url = `/payment/${id}?_embed=Order`;
+    return instance.delete(url);
+};

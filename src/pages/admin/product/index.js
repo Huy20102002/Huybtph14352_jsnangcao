@@ -69,7 +69,7 @@ const AdminProduct = {
                     <td class="px-6 py-4 whitespace-nowrap">
                     <select  name="" id="cate_id"  class="appearance-none" disabled="disabled">
                     ${allCate.data.map((itemCate) =>/* html */ `
-                      <option ${itemCate.id === item.id_Cate ? "selected" : ""}>${itemCate.name}</option>
+                      <option ${itemCate.id === +item.id_Cate ? "selected" : ""}>${itemCate.name}</option>
                     `).join("")}
                      </select>
                     </td>

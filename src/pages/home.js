@@ -1,10 +1,14 @@
+import toastr from "toastr";
 import producthot from "../components/producthot";
 import ProductClothes from "../components/productClothes";
 import ProductShoes from "../components/productShoes";
 import Banner from "../components/banner";
-
+import { addTocart } from "../utils/cart";
+import "toastr/build/toastr.min.css";
 import Header from "../components/header";
 import Footer from "../components/footer";
+import {get } from "../api/products";
+import { reRender } from "../utils";
 
 const HomePage = {
     async render() {
@@ -50,6 +54,19 @@ ${await ProductShoes.render()}
     },
     afterRender() {
         Header.afterRender();
+        const buttonAddCart = document.querySelectorAll("#addTocart");
+        buttonAddCart.forEach((btn) => {
+            const { id } = btn.dataset;
+
+            btn.addEventListener("click", async(e) => {
+                e.preventDefault();
+                const { data } = await get(id);
+                addTocart({...data, quantity: 1 }, () => {
+                    toastr.success("Thêm sản phẩm vào giỏ hàng thành công");
+                });
+                reRender(HomePage, "#app");
+            });
+        });
     },
 };
 

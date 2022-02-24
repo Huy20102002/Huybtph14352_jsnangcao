@@ -30,3 +30,7 @@ export const search = (post) => {
     const url = `/products/?q=${post}`;
     return instance.get(url);
 };
+export const paginationproduct = (offset, limit) => {
+    const url = `/products/?_page=${offset}&_limit=${limit}`;
+    return instance.get(url);
+};

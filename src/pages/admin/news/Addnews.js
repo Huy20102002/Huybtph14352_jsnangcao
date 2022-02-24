@@ -1,4 +1,6 @@
 import axios from "axios";
+import $ from "jquery";
+import validate from "jquery-validation";
 import NavbarAdmin from "../../../components/NavbarAdmin";
 import { add } from "../../../api/posts";
 import { reRender } from "../../../utils";
@@ -24,15 +26,15 @@ const AddNews = {
           <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
               <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                   <div class="p-6 bg-white border-b border-gray-200">
-                      <form method="POST" action="" id="form-add">
+                      <form  id="form-add">
                           <div class="mb-4">
                               <label class="text-xl text-gray-600">Tiêu Đề<span class="text-red-500">*</span></label></br>
-                              <input type="text" id="title-post" class="border-2 border-gray-300 p-2 w-full" name="title" id="title" value="" required>
+                              <input type="text" id="title-post" name="title-post" class="border-2 border-gray-300 p-2 w-full" value="" >
                           </div>
 
                           <div class="mb-4">
                               <label class="text-xl text-gray-600">Mô tả Ngắn</label>
-                              <input type="text" id="description-post" class="border-2 border-gray-300 p-2 w-full" name="description" id="description" placeholder="text.....">
+                              <input type="text" id="description-post" name="description-post" class="border-2 border-gray-300 p-2 w-full" placeholder="text.....">
                           </div>
                           <div class="mb-4">
                           <label class="text-xl text-gray-600">Ảnh minh họa</label>
@@ -48,10 +50,10 @@ const AddNews = {
                           </div>
                           <div class="mb-8">
                               <label class="text-xl text-gray-600">Nội Dung <span class="text-red-500">*</span></label>
-                              <textarea name="content" id="content-post" class="border-2 border-gray-500"></textarea>
+                              <textarea name="content-post" id="content-post" class="border-2 border-gray-500"></textarea>
                           </div>
                           <div class="flex p-1">
-                              <button role="submit" class="p-3 bg-blue-500 text-white hover:bg-blue-400" required>Thêm tin tức </button>
+                              <button type="submit" class="p-3 bg-blue-500 text-white hover:bg-blue-400" >Thêm tin tức </button>
                           </div>
                       </form>
                   </div>
@@ -62,9 +64,8 @@ const AddNews = {
         `;
     },
     afterRender() {
-        CKEDITOR.replace("content");
+        CKEDITOR.replace("content-post");
         NavbarAdmin.afterRender();
-        const formAdd = document.querySelector("#form-add");
         const imgdisplay = document.querySelector("#displayImage");
         const imgPost = document.querySelector("#image-post");
         const CLOUND_DINARY_API_URL = "https://api.cloudinary.com/v1_1/fpt-com/image/upload";
@@ -73,26 +74,64 @@ const AddNews = {
             e.preventDefault();
             imgdisplay.src = URL.createObjectURL(e.target.files[0]);
         });
-        formAdd.addEventListener("submit", async(e) => {
-            e.preventDefault();
-            const file = imgPost.files[0];
-            const formData = new FormData();
-            formData.append("file", file);
-            formData.append("upload_preset", CLOUND_DINARY_PRESET);
-            // eslint-disable-next-line no-unused-expressions
-            const { data } = await axios.post(CLOUND_DINARY_API_URL, formData, {
-                headers: {
-                    "Content-Type": "application/form-data",
+        $("#form-add").validate({
+
+            rules: {
+                "title-post": {
+                    required: true,
+                    minlength: 5,
+
                 },
-            });
-            add({
-                title: document.querySelector("#title-post").value,
-                shortDescription: document.querySelector("#description-post").value,
-                content: document.querySelector("#content-post").value,
-                image: data.url,
-            }).then(() => {
-                reRender(Adminnews, "#app");
-            });
+                "description-post": {
+                    required: true,
+                    minlength: 5,
+
+                },
+                "content-post": {
+                    required: true,
+                    minlength: 10,
+
+                },
+
+            },
+            messages: {
+                "title-post": {
+                    required: "Vui lòng nhập tiêu đề",
+                    minlength: "Vui lòng nhập trên 5 ký tự",
+                },
+                "description-post": {
+                    required: "Vui lòng nhập mô tả ngắn",
+                    minlength: "Vui lòng nhập trên 5 ký tự",
+                },
+                "content-post": {
+                    required: "vui lòng nhập nội dung",
+                    minlength: "Vui lòng nhập trên 10 ký tự",
+
+                },
+            },
+            submitHandler: () => {
+                async function addnew() {
+                    const file = imgPost.files[0];
+                    const formData = new FormData();
+                    formData.append("file", file);
+                    formData.append("upload_preset", CLOUND_DINARY_PRESET);
+                    // eslint-disable-next-line no-unused-expressions
+                    const { data } = await axios.post(CLOUND_DINARY_API_URL, formData, {
+                        headers: {
+                            "Content-Type": "application/form-data",
+                        },
+                    });
+                    add({
+                        title: document.querySelector("#title-post").value,
+                        shortDescription: document.querySelector("#description-post").value,
+                        content: document.querySelector("#content-post").value,
+                        image: data.url,
+                    }).then(() => {
+                        reRender(Adminnews, "#app");
+                    });
+                }
+                addnew();
+            },
         });
     },
 };

@@ -1,8 +1,15 @@
-import swal from "sweetalert";
 import { data } from "jquery";
+import toastr from "toastr";
+import "toastr/build/toastr.min.css";
+
 import NavbarAdmin from "../../../components/NavbarAdmin";
-import { getPayment, getPaymentid, updatePayment } from "../../../api/payment";
-import { getorder, getidorder } from "../../../api/order";
+import {
+    deletePayandorder,
+    getPayment,
+    getPaymentid,
+    updatePayment,
+} from "../../../api/payment";
+import { getorder, getidorder, deleteorder } from "../../../api/order";
 import { reRender } from "../../../utils";
 
 const Order = {
@@ -41,7 +48,7 @@ const Order = {
            <option value="4" ${+item.Status === 4 ? `selected` : ``}>Đã nhận hàng</option>
            <option value="5" ${+item.Status === 5 ? `selected` : ``}>Đơn hàng bị hủy</option>
            </select>
-         <button data-id="${item.id}" type="submit" class="btn-confirm p-1 bg-blue-500 text-gray-100 text-xs rounded-lg  border-blue-300">Xác nhận</button>
+           <button data-id="${item.id}" type="submit" class="btn-confirm p-1 bg-blue-500 text-gray-100 text-xs rounded-lg  border-blue-300">Xác nhận</button>
           </div>
             </td>
             <td class="text-left py-3 px-4">
@@ -165,6 +172,11 @@ const Order = {
         DeleteElement.forEach((data) => {
             data.addEventListener("click", () => {
                 const { id } = data.dataset;
+                const confirm = window.confirm("Bạn có chắc muốn xóa không");
+                if (confirm) {
+                    deletePayandorder(id);
+                    toastr.error("Xóa đơn hàng thành công");
+                }
             });
         });
     },

@@ -10,7 +10,10 @@ const Categories = {
         async render(id) {
             const { data } = await getAllCate(id);
             const dataProduct = await getAll();
-            const productclothes = dataProduct.data.filter((products) => products.id_Cate === +id);
+            const productcate = dataProduct.data.filter((products) => products.id_Cate === id);
+            console.log(data.id_Cate);
+
+            console.log(productcate);
             return /* html */ `
         <header>
       ${Header.render()}
@@ -39,9 +42,9 @@ const Categories = {
                     <div class="main-right-product">
                         <div class="details-product">
                             <div class="grid md:grid-cols-4 gap-12 mt-5 ">
-                            ${productclothes.map((item) => /* html */ `
+                            ${productcate.map((item) => /* html */ `
                             <div class="rounded-lg shadow-lg bg-white max-w-sm m-auto">
-                            <a href="product/${item.id}">
+                            <a href="/product/${item.id}">
                                 <img class="rounded-t-lg" src="${item.image}" alt="" />
                             </a>
                             <div class="p-6">

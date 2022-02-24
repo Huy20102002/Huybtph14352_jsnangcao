@@ -1,5 +1,6 @@
 import Navigo from "navigo";
 
+import { init } from "@emailjs/browser";
 import HomePage from "./pages/home";
 import PageNews from "./pages/page_News";
 import Signin from "./pages/signin";
@@ -22,6 +23,8 @@ import Categories from "./pages/categories";
 import Order from "./pages/admin/order";
 import Search from "./pages/search";
 import Profile from "./pages/profile";
+import Ordersuccess from "./pages/ordersuccess";
+import Listcomment from "./pages/admin/comment";
 
 const router = new Navigo("/", { linksSelector: "a", hash: true });
 
@@ -57,6 +60,7 @@ router.on({
     "/news": () => { print(PageNews); },
     "/about": () => { print(About); },
     "/cart": () => { print(CartDetails); },
+    "/cart/success": () => { print(Ordersuccess); },
     "/category/:id": ({ data }) => { print(Categories, data.id); },
     "/admin/dashboard": () => { print(AdminDashboard); },
     "/admin/news": () => { print(Adminnews); },
@@ -69,6 +73,7 @@ router.on({
     "/admin/category/add": () => { print(AddCate); },
     "/admin/category/:id/edit": ({ data }) => { print(UpdateCategory, data.id); },
     "/admin/order": () => { print(Order); },
+    "/admin/comment": () => { print(Listcomment); },
 
 });
 router.resolve();

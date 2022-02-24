@@ -45,7 +45,7 @@ const NavbarAdmin = {
                         >
                     </li>
                     <li class="nav-item p-2">
-                        <a class="nav-link text-black font-semibold" href="#">Quản Lý Bình Luận</a>
+                        <a class="nav-link text-black font-semibold" href="/admin/comment">Quản Lý Bình Luận</a>
                     </li>
                      <li class="nav-item p-2" id = "users">
                      </li>

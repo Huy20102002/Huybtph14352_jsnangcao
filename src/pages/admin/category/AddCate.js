@@ -59,10 +59,10 @@ const AddCate = {
                     required: true,
                 },
             },
-            massages: {
+            messages: {
 
                 "name-post": {
-                    required: "Không để trống trường hợp này",
+                    required: "Vui lòng nhập tên danh mục",
                 },
             },
             submitHandler: () => {

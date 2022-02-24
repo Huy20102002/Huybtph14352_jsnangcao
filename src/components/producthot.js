@@ -4,7 +4,7 @@ import { getAll } from "../api/products";
 const producthot = {
         async render() {
             const { data } = await getAll();
-            const producthot = data.filter((products) => products.id_Cate === 1);
+            const producthot = data.filter((products) => products.id_Cate === "1");
             return /* html */ `
         <div class="grid md:grid-cols-4 gap-12 mt-5 ">
         ${producthot.map((item) =>/* html */ `
@@ -18,7 +18,7 @@ const producthot = {
             ${item.price}
 
             </p>
-            <button type="button" class=" inline-block px-6 py-2.5 bg-blue-600 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-blue-700 hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out">Đặt Hàng</button>
+            <button type="button" data-id="${item.id}" id="addTocart" class=" inline-block px-6 py-2.5 bg-blue-600 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-blue-700 hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out">Đặt Hàng</button>
         </div>
       </div>
         `).join("")}

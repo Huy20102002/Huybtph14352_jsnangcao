@@ -1,4 +1,6 @@
 // import DataProducts from "../../../data/DataProduct";
+import $ from "jquery";
+import validate from "jquery-validation";
 import axios from "axios";
 import NavbarAdmin from "../../../components/NavbarAdmin";
 import {get, Update } from "../../../api/posts";
@@ -28,12 +30,12 @@ const UpdateNews = {
                       <form method="POST" action="" id="form-update">
                           <div class="mb-4">
                               <label class="text-xl text-gray-600">Tiêu Đề<span class="text-red-500">*</span></label></br>
-                              <input type="text" id="title-post" value="${data.title}" class="border-2 border-gray-300 p-2 w-full" name="title" id="title" value="" required>
+                              <input type="text" id="title-post" value="${data.title}" class="border-2 border-gray-300 p-2 w-full" name="title" value="" required>
                           </div>
 
                           <div class="mb-4">
                               <label class="text-xl text-gray-600">Mô tả Ngắn</label>
-                              <input type="text" id="description-post" value="${data.shortDescription}" class="border-2 border-gray-300 p-2 w-full" name="description" id="description" placeholder="text.....">
+                              <input type="text" id="description-post" name="description-post" value="${data.shortDescription}" class="border-2 border-gray-300 p-2 w-full"  placeholder="text.....">
                           </div>
                           <div class="mb-4">
                           <label class="text-xl text-gray-600">Ảnh minh họa</label>
@@ -49,10 +51,11 @@ const UpdateNews = {
                           </div>
                           <div class="mb-8">
                               <label class="text-xl text-gray-600">Nội Dung <span class="text-red-500">*</span></label>
-                              <textarea name="content" id="content-post" class="border-2 border-gray-500">${data.content}</textarea>
+                              </p></p>
+                              <textarea name="content-post" id="content-post"  rows="10" cols="30"  class="border-2 border-gray-500">${data.content}</textarea>
                           </div>
                           <div class="flex p-1">
-                              <button role="submit" class="p-3 bg-blue-500 text-white hover:bg-blue-400" required>Cập nhật tin tức </button>
+                              <button type="submit" class="p-3 bg-blue-500 text-white hover:bg-blue-400" required>Cập nhật tin tức </button>
                           </div>
                       </form>
                   </div>
@@ -63,10 +66,7 @@ const UpdateNews = {
               `;
     },
     afterRender(id) {
-        CKEDITOR.replace("content");
-
         NavbarAdmin.afterRender();
-        const formupdate = document.querySelector("#form-update");
         const imgdisplay = document.querySelector("#displayImage");
         const imgPost = document.querySelector("#image-post");
         let imglink = "";
@@ -76,29 +76,65 @@ const UpdateNews = {
             e.preventDefault();
             imgdisplay.src = URL.createObjectURL(e.target.files[0]);
         });
-        formupdate.addEventListener("submit", async(e) => {
-            e.preventDefault();
-            const file = imgPost.files[0];
-            if (file) {
-                const formData = new FormData();
-                formData.append("file", file);
-                formData.append("upload_preset", CLOUND_DINARY_PRESET);
-                const { data } = await axios.post(CLOUND_DINARY_API_URL, formData, {
-                    headers: {
-                        "Content-type": "application/form-data",
-                    },
-                });
-                imglink = data.url;
-            }
-            Update(id, {
-                id,
-                title: document.querySelector("#title-post").value,
-                shortDescription: document.querySelector("#description-post").value,
-                content: document.querySelector("#content-post").value,
-                image: imglink !== "" ? imglink : imgdisplay.src,
-            }).then(() => {
-                reRender(Adminnews, "#app");
-            });
+        $("#form-update").validate({
+            rules: {
+                "title-post": {
+                    required: true,
+                    minlength: 5,
+
+                },
+                "description-post": {
+                    required: true,
+                    minlength: 5,
+
+                },
+                "content-post": {
+                    required: true,
+                    minlength: 10,
+
+                },
+
+            },
+            messages: {
+                "title-post": {
+                    required: "Vui lòng nhập tiêu đề",
+                    minlength: "Vui lòng nhập trên 5 ký tự",
+                },
+                "description-post": {
+                    required: "Vui lòng nhập mô tả ngắn",
+                    minlength: "Vui lòng nhập trên 5 ký tự",
+                },
+                "content-post": {
+                    required: "vui lòng nhập nội dung",
+                    minlength: "Vui lòng nhập trên 10 ký tự",
+
+                },
+            },
+            submitHandler: () => {
+                async function updateNew() {
+                    const file = imgPost.files[0];
+                    if (file) {
+                        const formData = new FormData();
+                        formData.append("file", file);
+                        formData.append("upload_preset", CLOUND_DINARY_PRESET);
+                        const { data } = await axios.post(CLOUND_DINARY_API_URL, formData, {
+                            headers: {
+                                "Content-type": "application/form-data",
+                            },
+                        });
+                        imglink = data.url;
+                    }
+                    Update(id, {
+                        title: $("#title-post").val(),
+                        shortDescription: $("#description-post").val(),
+                        content: $("#content-post").val(),
+                        image: imglink !== "" ? imglink : imgdisplay.src,
+                    }).then(() => {
+                        reRender(Adminnews, "#app");
+                    });
+                }
+                updateNew();
+            },
         });
     },
 };

@@ -4,6 +4,7 @@ import Header from "../../components/header";
 import Footer from "../../components/footer";
 import { getLocalStorage, reRender } from "../../utils";
 import { AddPayment } from "../../api/payment";
+import Ordersuccess from "../ordersuccess";
 // eslint-disable-next-line no-unused-vars
 import {
     increaseQuantityFromCart,
@@ -18,7 +19,6 @@ import { AddOrder } from "../../api/order";
 const CartDetails = {
         render() {
             const data = getLocalStorage("cart");
-            console.log(data);
             return /* html */ `
         <!-- component -->
           <header>${Header.render()}</header>
@@ -194,6 +194,7 @@ const CartDetails = {
                     price: item.price,
                 });
             });
+            window.location.href = "/cart/success";
             window.localStorage.removeItem("cart");
         });
         ButtonElement.forEach((btn) => {

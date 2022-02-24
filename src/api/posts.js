@@ -3,6 +3,7 @@ import instance from "./instance";
 // eslint-disable-next-line import/prefer-default-export
 export const getAll = () => {
     const url = "/posts";
+
     return instance.get(url);
 };
 export const get = (id) => {
@@ -20,4 +21,8 @@ export const remove = (id) => {
 export const Update = (id, post) => {
     const url = `/posts/${id}`;
     return instance.put(url, post);
+};
+export const paginationposts = (offset, limit) => {
+    const url = `/posts/?_page=${offset}&_limit=${limit}`;
+    return instance.get(url);
 };

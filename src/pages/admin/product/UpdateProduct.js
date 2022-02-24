@@ -1,4 +1,6 @@
 import axios from "axios";
+import $ from "jquery";
+import validate from "jquery-validation";
 import NavbarAdmin from "../../../components/NavbarAdmin";
 import {get, UpdateProduct } from "../../../api/products";
 import { reRender } from "../../../utils";
@@ -30,7 +32,7 @@ const UpdateProducts = {
                   <form id="form-update-product">
                       <div class="mb-4">
                           <label class="text-xl text-gray-600">Tên sản phẩm<span class="text-red-500">*</span></label></br>
-                          <input type="text" id="name-product" value="${data.name}" class="border-2 border-gray-300 p-2 w-full" name="title" id="title" value="" required>
+                          <input type="text" id="name-product" value="${data.name}" class="border-2 border-gray-300 p-2 w-full" name="name-product"  value="" >
                       </div>
                       <div class="mb-4">
                           <label class="text-xl text-gray-600">Danh Mục</label>
@@ -42,7 +44,7 @@ const UpdateProducts = {
                       </div>
                       <div class="mb-4">
                       <label class="text-xl text-gray-600">Giá Tiền<span class="text-red-500">*</span></label></br>
-                      <input type="number" id="price-product"  value="${data.price}" class="border-2 border-gray-300 p-2 w-full" name="title" id="title" value="" required>
+                      <input type="number" id="price-product"  value="${data.price}" class="border-2 border-gray-300 p-2 w-full" name="price-product"  >
                      </div>
                       <div class="mb-4">
                       <label class="text-xl text-gray-600">Ảnh minh họa</label>
@@ -58,7 +60,8 @@ const UpdateProducts = {
                       </div>
                       <div class="mb-8">
                           <label class="text-xl text-gray-600">Nội Dung <span class="text-red-500">*</span></label>
-                          <textarea name="content" id="content-product" class="border-2 border-gray-500">${data.content}</textarea>
+                          <p></p>
+                          <textarea name="content-product" id="content-product" cols="100" rows="5" class="border-2 border-gray-500">${data.content}</textarea>
                       </div>
                       <div class="flex p-1">
                           <button role="submit" class="p-3 bg-blue-500 text-white hover:bg-blue-400" required>Cập nhật sản phẩm</button>
@@ -72,7 +75,6 @@ const UpdateProducts = {
         `;
     },
     afterRender(id) {
-        CKEDITOR.replace("content");
         NavbarAdmin.afterRender();
         const formupdateProduct = document.querySelector("#form-update-product");
         const imageProduct = document.querySelector("#image-product");
@@ -84,31 +86,57 @@ const UpdateProducts = {
             e.preventDefault();
             imageDisplay.src = URL.createObjectURL(e.target.files[0]);
         });
-        formupdateProduct.addEventListener("submit", async (e) => {
-            e.preventDefault();
-            const file = imageProduct.files[0];
-            if (file) {
-                const formData = new FormData();
-                formData.append("file", file);
-                formData.append("upload_preset", CLOUND_DINARY_PRESET);
-                const { data } = await axios.post(CLOUND_DINARY_API_URL, formData, {
-                    headers: {
-                        "Content-type": "application/form-data",
-                    },
-                });
-                imglink = data.url;
-            }
+        $("#form-update-product").validate({
+            rules: {
+                "name-product": {
+                    required: true,
+                },
+                "content-product": {
+                    required: true,
+                },
+                "price-product": {
+                    required: true,
+                },
+            },
+            messages: {
+                "name-product": {
+                    required: "Vui lòng nhập tên sản phẩm",
+                },
+                "content-product": {
+                    required: "Vui lòng nhập nội dung sản phẩm",
+                },
+                "price-product": {
+                    required: "Vui lòng nhập giá tiền",
+                },
+            },
+            submitHandler: () => {
+                async function HandlerUpdateProduct() {
+                    const file = imageProduct.files[0];
+                    if (file) {
+                        const formData = new FormData();
+                        formData.append("file", file);
+                        formData.append("upload_preset", CLOUND_DINARY_PRESET);
+                        const { data } = await axios.post(CLOUND_DINARY_API_URL, formData, {
+                            headers: {
+                                "Content-type": "application/form-data",
+                            },
+                        });
+                        imglink = data.url;
+                    }
 
-            UpdateProduct(id, {
-                name: document.querySelector("#name-product").value,
-                content: document.querySelector("#content-product").value,
-                price: document.querySelector("#price-product").value,
-                id_Cate: document.querySelector("#cate_id").value,
-                image: imglink !== "" ? imglink : imageDisplay.src,
+                    UpdateProduct(id, {
+                        name: document.querySelector("#name-product").value,
+                        content: document.querySelector("#content-product").value,
+                        price: document.querySelector("#price-product").value,
+                        id_Cate: document.querySelector("#cate_id").value,
+                        image: imglink !== "" ? imglink : imageDisplay.src,
 
-            }).then(() => {
-                reRender(AdminProduct, "#app");
-            });
+                    }).then(() => {
+                        reRender(AdminProduct, "#app");
+                    });
+                }
+                HandlerUpdateProduct();
+            },
         });
     },
 };

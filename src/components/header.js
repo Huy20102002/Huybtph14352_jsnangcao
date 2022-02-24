@@ -1,4 +1,4 @@
-import { search } from "../api/products";
+import { paginationproduct, search } from "../api/products";
 import { getLocalStorage, reRender } from "../utils";
 import { getCountCart } from "../utils/cart";
 
@@ -85,7 +85,7 @@ const Header = {
     </nav>
             `;
     },
-    afterRender() {
+    async afterRender() {
         const { username } = JSON.parse(localStorage.getItem("user"));
         document.querySelector("#info").innerHTML = `<i class="fal fa-user-alt"></i> ${username}`;
         const logout = document.querySelector("#logout");
@@ -104,6 +104,10 @@ const Header = {
                 document.location.href = `/product/search/${Keysearch}`;
             }
         });
+        const total = await paginationproduct();
+        const totalpage = total.headers["x-total-count"] / 4;
+        const limit = await paginationproduct(totalpage, 5);
+        console.log(limit);
     },
 };
 

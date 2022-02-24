@@ -1,7 +1,9 @@
 import axios from "axios";
 import swal from "sweetalert";
+import $ from "jquery";
+import validate from "jquery-validation";
 import NavbarAdmin from "../../../components/NavbarAdmin";
-import { addProduct } from "../../../api/products";
+import { addProduct, addProductDt } from "../../../api/products";
 import { getAllCate } from "../../../api/category";
 import { reRender } from "../../../utils";
 import AdminProduct from ".";
@@ -28,8 +30,8 @@ const AddProduct = {
                   <div class="p-6 bg-white border-b border-gray-200">
                       <form method="POST" action="" id="form-add-product">
                           <div class="mb-4">
-                              <label class="text-xl text-gray-600">Tên sản phẩm<span class="text-red-500">*</span></label></br>
-                              <input type="text" id="name-product" class="border-2 border-gray-300 p-2 w-full" name="title" id="title" value="" required>
+                              <label class="text-xl text-gray-600">Tên sản phẩm<span class="text-red-500">*</span></label>
+                              <input type="text" id="name-product" class="border-2 border-gray-300 p-2 w-full" name="name-product" >
                           </div>
                           <div class="mb-4">
                               <label class="text-xl text-gray-600">Danh Mục</label>
@@ -40,8 +42,8 @@ const AddProduct = {
                               </select>                   
                           </div>
                           <div class="mb-4">
-                          <label class="text-xl text-gray-600">Giá Tiền<span class="text-red-500">*</span></label></br>
-                          <input type="number" id="price-product" class="border-2 border-gray-300 p-2 w-full" name="title" id="title" value="" required>
+                          <label class="text-xl text-gray-600">Giá Tiền<span class="text-red-500">*</span></label>
+                          <input type="number" id="price-product" class="border-2 border-gray-300 p-2 w-full" name="price-product" value="" >
                          </div>
                           <div class="mb-4">
                           <label class="text-xl text-gray-600">Ảnh minh họa</label>
@@ -54,13 +56,15 @@ const AddProduct = {
                           <div class="shrink-0 mt-5">
                           <img class="h-32 w-32 object-cover " id="displayImage" src="https://thumbs.dreamstime.com/b/no-thumbnail-image-placeholder-forums-blogs-websites-148010362.jpg" alt="Current profile photo" />
                         </div>
+                      
                           </div>
                           <div class="mb-8">
                               <label class="text-xl text-gray-600">Nội Dung <span class="text-red-500">*</span></label>
-                              <textarea name="content" id="content-product" class="border-2 border-gray-500"></textarea>
+                              <p></p>
+                              <textarea name="content-product" id="content-product" cols="100" rows="5" class="border-2 border-gray-500"></textarea>
                           </div>
                           <div class="flex p-1">
-                              <button role="submit" class="p-3 bg-blue-500 text-white hover:bg-blue-400" required>Thêm sản phẩm</button>
+                              <button type="submit" class="p-3 bg-blue-500 text-white hover:bg-blue-400" required>Thêm sản phẩm</button>
                           </div>
                       </form>
                   </div>
@@ -71,39 +75,70 @@ const AddProduct = {
         `;
     },
     afterRender() {
-        CKEDITOR.replace("content");
         NavbarAdmin.afterRender();
+
         const formAddProduct = document.querySelector("#form-add-product");
         const imgDisplay = document.querySelector("#displayImage");
         const imgProduct = document.querySelector("#image-product");
+        const imgfile = document.querySelectorAll("#imagefile");
         const CLOUND_DINARY_API_URL = "https://api.cloudinary.com/v1_1/fpt-com/image/upload";
         const CLOUND_DINARY_PRESET = "nwtidwxs";
         imgProduct.addEventListener("change", (e) => {
             e.preventDefault();
             imgDisplay.src = URL.createObjectURL(e.target.files[0]);
         });
-        formAddProduct.addEventListener("submit", async (e) => {
-            e.preventDefault();
-            const file = imgProduct.files[0];
-            const formData = new FormData();
-            formData.append("file", file);
-            formData.append("upload_preset", CLOUND_DINARY_PRESET);
-            const { data } = await axios.post(CLOUND_DINARY_API_URL, formData, {
-                headers: {
-                    "Content-type": "application/form-data",
+        $("#form-add-product").validate({
+            rules: {
+                "name-product": {
+                    required: true,
                 },
-            });
-            addProduct({
-                name: document.querySelector("#name-product").value,
-                content: document.querySelector("#content-product").value,
-                price: document.querySelector("#price-product").value,
-                id_Cate: document.querySelector("#cate_id").value,
-                image: data.url,
-            }).then(() => {
-                swal("Thêm sản phẩm thành công!", "vui lòng kích vào nút!", "success");
-            }).then(() => {
-                reRender(AdminProduct, "#app");
-            });
+                "content-product": {
+                    required: true,
+                },
+                "price-product": {
+                    required: true,
+                },
+
+            },
+            messages: {
+                "name-product": {
+                    required: "Vui lòng nhập tên sản phẩm",
+                },
+                "content-product": {
+                    required: "Vui lòng nhập nội dung sản phẩm",
+                },
+                "price-product": {
+                    required: "Vui lòng nhập giá tiền",
+                },
+
+            },
+            submitHandler: () => {
+                async function HandlerAddProduct() {
+                    const file = imgProduct.files[0];
+                    const formData = new FormData();
+                    formData.append("file", file);
+                    formData.append("upload_preset", CLOUND_DINARY_PRESET);
+                    const { data } = await axios.post(CLOUND_DINARY_API_URL, formData, {
+                        headers: {
+                            "Content-type": "application/form-data",
+                        },
+                    });
+
+                    addProduct({
+                        name: document.querySelector("#name-product").value,
+                        content: document.querySelector("#content-product").value,
+                        price: document.querySelector("#price-product").value,
+                        id_Cate: document.querySelector("#cate_id").value,
+                        image: data.url,
+
+                    }).then(() => {
+                        swal("Thêm sản phẩm thành công!", "vui lòng kích vào nút!", "success");
+                    }).then(() => {
+                        reRender(AdminProduct, "#app");
+                    });
+                }
+                HandlerAddProduct();
+            },
         });
     },
 };
