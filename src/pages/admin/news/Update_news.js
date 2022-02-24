@@ -1,9 +1,15 @@
-import DataProducts from "../../../data/DataProduct";
+// import DataProducts from "../../../data/DataProduct";
+import $ from "jquery";
+import validate from "jquery-validation";
+import axios from "axios";
 import NavbarAdmin from "../../../components/NavbarAdmin";
+import {get, Update } from "../../../api/posts";
+import { reRender } from "../../../utils";
+import Adminnews from "./news";
 
 const UpdateNews = {
-    render(id) {
-        const Result = DataProducts.find((post) => post.id === +id);
+    async render(id) {
+        const { data } = await get(id);
         return /* html */ `
         ${NavbarAdmin.render()}
         <header class="bg-white shadow ">
@@ -12,88 +18,124 @@ const UpdateNews = {
             Cập nhập tin tức
           </h1>
        <span class="rounded bg-gray-900 py-1 px-2">
-       <a class="text-white text-xs " href= "admin/news">Quay Lại</a>
+       <a class="text-white text-xs " href= "/admin/news">Quay Lại</a>
        </span>
         </div>
       </header>
         <main class = "container m-auto w-full">
-        <div class="md:grid md:grid-cols-3 md:gap-6 pt-5">
-        <div class="mt-5 md:mt-0 md:col-span-2">
-          <form action="" method="POST">
-            <div class="shadow sm:rounded-md sm:overflow-hidden">
-              <div class="px-4 py-5 bg-white space-y-6 sm:p-6">
-                <div class="grid grid-cols-3 gap-6">
-                  <div class="col-span-3 sm:col-span-2">
-                    <label for="company-website" class="block text-sm font-medium text-gray-700">
-                      Tiêu Đề
-                    </label>
-                    <div class="mt-1 flex rounded-md shadow-sm">
+        <div class="py-12">
+          <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+              <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
+                  <div class="p-6 bg-white border-b border-gray-200">
+                      <form method="POST" action="" id="form-update">
+                          <div class="mb-4">
+                              <label class="text-xl text-gray-600">Tiêu Đề<span class="text-red-500">*</span></label></br>
+                              <input type="text" id="title-post" value="${data.title}" class="border-2 border-gray-300 p-2 w-full" name="title" value="" required>
+                          </div>
 
-                      <input type="text" name="company-website" value="${Result.name}" id="company-website" class="focus:ring-indigo-500 focus:border-indigo-500 focus:outline-none h-8 flex-1 block w-full rounded-none  rounded-r-md sm:text-sm border-gray-300" placeholder="www.example.com">
-                    </div>
+                          <div class="mb-4">
+                              <label class="text-xl text-gray-600">Mô tả Ngắn</label>
+                              <input type="text" id="description-post" name="description-post" value="${data.shortDescription}" class="border-2 border-gray-300 p-2 w-full"  placeholder="text.....">
+                          </div>
+                          <div class="mb-4">
+                          <label class="text-xl text-gray-600">Ảnh minh họa</label>
+                          <input type="file" id="image-post" class="mt-2 block w-full text-sm text-slate-500
+                          file:mr-4 file:py-2 file:px-4
+                          file:rounded-full file:border-0
+                          file:text-sm file:font-semibold
+                          file:bg-violet-50 file:text-dark-700
+                          hover:file:bg-violet-100 "  placeholder="(Optional)">
+                          <div class="shrink-0 mt-5">
+                          <img class="h-32 w-32 object-cover " id="displayImage" src="${data.image}" alt="Current profile photo" />
+                        </div>
+                          </div>
+                          <div class="mb-8">
+                              <label class="text-xl text-gray-600">Nội Dung <span class="text-red-500">*</span></label>
+                              </p></p>
+                              <textarea name="content-post" id="content-post"  rows="10" cols="30"  class="border-2 border-gray-500">${data.content}</textarea>
+                          </div>
+                          <div class="flex p-1">
+                              <button type="submit" class="p-3 bg-blue-500 text-white hover:bg-blue-400" required>Cập nhật tin tức </button>
+                          </div>
+                      </form>
                   </div>
-                </div>
-    
-                <div>
-                  <label for="about" class="block text-sm font-medium text-gray-700">
-                    Nội dung
-                  </label>
-                  <div class="mt-1">
-                    <textarea id="about" name="about" rows="3" class="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 mt-1 block w-full sm:text-sm border border-gray-300 rounded-md" placeholder="Nội dung">${Result.description}</textarea>
-                  </div>
-                  <p class="mt-2 text-sm text-gray-500">
-                    Brief description for your profile. URLs are hyperlinked.
-                  </p>
-                </div>
-                <div>
-              <label class="block text-sm font-medium text-gray-700">
-                Photo
-              </label>
-              <div class="mt-1 flex items-center">
-                <span class="inline-block h-36 w-36 rounded overflow-hidden bg-gray-100">
-                <img src="${Result.Image}" alt="">
-                </span>
-                <button type="button" class="ml-5 bg-white py-2 px-3 border border-gray-300 rounded-md shadow-sm text-sm leading-4 font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
-                  Change
-                </button>
               </div>
-            </div>
-                <div>
-                  <label class="block text-sm font-medium text-gray-700">
-                   Ảnh
-                  </label>
-                  <div class="mt-1 flex justify-center px-6 pt-5 pb-6 border-2 border-gray-300 border-dashed rounded-md">
-                    <div class="space-y-1 text-center">
-                      <svg class="mx-auto h-12 w-12 text-gray-400" stroke="currentColor" fill="none" viewBox="0 0 48 48" aria-hidden="true">
-                        <path d="M28 8H12a4 4 0 00-4 4v20m32-12v8m0 0v8a4 4 0 01-4 4H12a4 4 0 01-4-4v-4m32-4l-3.172-3.172a4 4 0 00-5.656 0L28 28M8 32l9.172-9.172a4 4 0 015.656 0L28 28m0 0l4 4m4-24h8m-4-4v8m-12 4h.02" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
-                      </svg>
-                      <div class="flex text-sm text-gray-600">
-                        <label for="file-upload" class="relative cursor-pointer bg-white rounded-md font-medium text-indigo-600 hover:text-indigo-500 focus-within:outline-none focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-indigo-500">
-                          <span>Đăng ảnh</span>
-                          <input id="file-upload" name="file-upload" type="file" class="sr-only">
-                        </label>
-                        <p class="pl-1">hoặc up load file</p>
-                      </div>
-                      <p class="text-xs text-gray-500">
-                        PNG, JPG, GIF up to 10MB
-                      </p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div class="px-4 py-3 bg-gray-50 text-right sm:px-6">
-                <button type="submit" class="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
-                  Lưu
-                </button>
-              </div>
-            </div>
-          </form>
-        </div>
-      </div>
-    </div>
+          </div>
+          </div>
         </main>
-   
               `;
+    },
+    afterRender(id) {
+        NavbarAdmin.afterRender();
+        const imgdisplay = document.querySelector("#displayImage");
+        const imgPost = document.querySelector("#image-post");
+        let imglink = "";
+        const CLOUND_DINARY_API_URL = "https://api.cloudinary.com/v1_1/fpt-com/image/upload";
+        const CLOUND_DINARY_PRESET = "nwtidwxs";
+        imgPost.addEventListener("change", (e) => {
+            e.preventDefault();
+            imgdisplay.src = URL.createObjectURL(e.target.files[0]);
+        });
+        $("#form-update").validate({
+            rules: {
+                "title-post": {
+                    required: true,
+                    minlength: 5,
+
+                },
+                "description-post": {
+                    required: true,
+                    minlength: 5,
+
+                },
+                "content-post": {
+                    required: true,
+                    minlength: 10,
+
+                },
+
+            },
+            messages: {
+                "title-post": {
+                    required: "Vui lòng nhập tiêu đề",
+                    minlength: "Vui lòng nhập trên 5 ký tự",
+                },
+                "description-post": {
+                    required: "Vui lòng nhập mô tả ngắn",
+                    minlength: "Vui lòng nhập trên 5 ký tự",
+                },
+                "content-post": {
+                    required: "vui lòng nhập nội dung",
+                    minlength: "Vui lòng nhập trên 10 ký tự",
+
+                },
+            },
+            submitHandler: () => {
+                async function updateNew() {
+                    const file = imgPost.files[0];
+                    if (file) {
+                        const formData = new FormData();
+                        formData.append("file", file);
+                        formData.append("upload_preset", CLOUND_DINARY_PRESET);
+                        const { data } = await axios.post(CLOUND_DINARY_API_URL, formData, {
+                            headers: {
+                                "Content-type": "application/form-data",
+                            },
+                        });
+                        imglink = data.url;
+                    }
+                    Update(id, {
+                        title: $("#title-post").val(),
+                        shortDescription: $("#description-post").val(),
+                        content: $("#content-post").val(),
+                        image: imglink !== "" ? imglink : imgdisplay.src,
+                    }).then(() => {
+                        reRender(Adminnews, "#app");
+                    });
+                }
+                updateNew();
+            },
+        });
     },
 };
 export default UpdateNews;

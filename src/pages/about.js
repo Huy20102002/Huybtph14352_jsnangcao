@@ -112,5 +112,8 @@ const About = {
              </footer>        
         `;
     },
+    afterRender() {
+        Header.afterRender();
+    },
 };
 export default About;

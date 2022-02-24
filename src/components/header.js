@@ -1,6 +1,10 @@
+import { paginationproduct, search } from "../api/products";
+import { getLocalStorage, reRender } from "../utils";
+import { getCountCart } from "../utils/cart";
+
 const Header = {
-    render() {
-        return /* html */ `
+        render() {
+            return /* html */ `
         <div class="bg-neutral-100">
      <div class="top-header m-auto container h-8 py-1 px-16 flex justify-between">
      <div class="icon">
@@ -15,12 +19,10 @@ const Header = {
      </div>
   </div>
         <nav class="relative w-full flex flex-wrap items-center justify-between py-3 bg-white-900 text-slate-800 shadow-lg navbar navbar-expand-lg navbar-light">
-        
         <div class="container-fluid w-full flex flex-wrap items-center justify-between px-6">
             <button class="flex  navbar-toggler text-black-200 border-0 hover:shadow-none hover:no-underline py-2 px-2.5 bg-transparent focus:outline-none focus:ring-0 focus:shadow-none focus:no-underline" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent1"
                 aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-        <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="bars" class="w-6" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"
-        >
+        <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="bars" class="w-6" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">
           <path
             fill="currentColor"
             d="M16 132h416c8.837 0 16-7.163 16-16V76c0-8.837-7.163-16-16-16H16C7.163 60 0 67.163 0 76v40c0 8.837 7.163 16 16 16zm0 160h416c8.837 0 16-7.163 16-16v-40c0-8.837-7.163-16-16-16H16c-8.837 0-16 7.163-16 16v40c0 8.837 7.163 16 16 16zm0 160h416c8.837 0 16-7.163 16-16v-40c0-8.837-7.163-16-16-16H16c-8.837 0-16 7.163-16 16v40c0 8.837 7.163 16 16 16z"
@@ -56,29 +58,56 @@ const Header = {
                     <li class="nav-item p-2">
                         <a class="nav-link text-black text-black font-semibold" href="#">Liên Hệ</a>
                     </li>
-                    <li class="nav-item p-2">
-                    <a class="nav-link text-black text-black font-semibold" href="/admin/dashboard">admin</a>
-                </li>
-                    
                 </ul>
                 <div class="search">
-                <input class="w-52 bg-gray-200 appearance-none border-2 border-gray-200 rounded  py-2 px-2 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-black-500" id="inline-password" type="password" placeholder="Tìm kiếm.....">
-                <button class="flex-shrink-0 bg-gray-500 hover:bg-gray-700 border-gray-500 hover:border-gray-700 text-sm  text-white py-2 px-2 rounded" type="button">
-                    <i class="fas fa-search"></i>
-                  </button>
-              </div>
-              <div class="btn flex">
-              <!-- <a href="" class=" text-black text-2xl font-medium p-2 ml-4 "><i class="fas fa-cart-plus"></i></a>
-              <a href="" class="text-black text-2xl font-medium p-2 ml-4 "><i class="far fa-user"></i></a> -->
-              <a href="/signin" class=" text-black text-base font-medium p-2">Đăng Nhập </a>
-              <a href="/signup" class="text-black text-base font-medium p-2">Đăng Ký</a>
+                  <form id="search" >
+                  <input class="w-52 bg-gray-200 appearance-none border-2 border-gray-200 rounded  py-2 px-2 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-black-500" id="key_search" type="search" placeholder="Tìm kiếm.....">
+                  <button type="submit" class="flex-shrink-0 bg-gray-500 hover:bg-gray-700 border-gray-500 hover:border-gray-700 text-sm  text-white py-2 px-2 rounded" >
+                      <i class="fas fa-search"></i>
+                    </button>
+                  </form>
+               </div>
+              <div id="userlogin" class="btn flex">
+              ${getLocalStorage("user") ? `<a href="/cart" class="flex h-10 ml-2 items-center px-2 rounded-lg border border-gray-200 hover:border-gray-300 focus:outline-none hover:shadow-inner">
+              <svg class="h-6 w-6 leading-none text-gray-300 stroke-current" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" />
+             </svg>
+              <span id = "quantity_cart" class="pl-1 text-gray-500 text-md">${getLocalStorage("cart") ? getCountCart().length : 0}</span>
+                </a>
+              <a href="/profile" id="info" class="text-black text-base font-medium p-2"></a>
+              <button id="logout" class="text-black text-base font-medium p-2">Đăng Xuất</button>  ` : ` <a href="#/signin" class=" text-black text-base font-medium p-2">Đăng Nhập </a>
+              <a href="/signup" class="text-black text-base font-medium p-2">Đăng Ký</a>`}
+         
           </div>
             </div>
 
         </div>
-        
     </nav>
             `;
+    },
+    async afterRender() {
+        const { username } = JSON.parse(localStorage.getItem("user"));
+        document.querySelector("#info").innerHTML = `<i class="fal fa-user-alt"></i> ${username}`;
+        const logout = document.querySelector("#logout");
+        const Search = document.querySelector("#search");
+        if (logout) {
+            logout.addEventListener("click", () => {
+                window.localStorage.removeItem("user");
+                reRender(Header, "header");
+            });
+        }
+        Search.addEventListener("submit", async (e) => {
+            e.preventDefault();
+            const Keysearch = document.querySelector("#key_search").value;
+            const { data } = await search(Keysearch);
+            if (data) {
+                document.location.href = `/product/search/${Keysearch}`;
+            }
+        });
+        const total = await paginationproduct();
+        const totalpage = total.headers["x-total-count"] / 4;
+        const limit = await paginationproduct(totalpage, 5);
+        console.log(limit);
     },
 };
 

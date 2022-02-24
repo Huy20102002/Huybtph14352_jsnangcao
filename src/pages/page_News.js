@@ -1,9 +1,10 @@
 import Header from "../components/header";
 import Footer from "../components/footer";
-import DataNews from "../data/DataNews";
+import { getAll } from "../api/posts";
 
 const PageNews = {
-        render() {
+        async render() {
+            const { data } = await getAll();
             return /* html */ `
         <header>${Header.render()}</header>
         <main class="">
@@ -15,10 +16,10 @@ const PageNews = {
                     </div>
                     <div class="main-news ">
                         <div>
-                        ${DataNews.map((item) =>/* html */ `
+                        ${data.map((item) =>/* html */ `
                                         <div class="post md:flex pb-3">
                                             <div class="img-news">
-                                                <a href=""> <img src="${item.image}" class="md:w-96 rounded" alt=""></a>
+                                                <a href=""> <img src="${item.image}" class="md:w-96 rounded"  alt=""></a>
                                             </div>
                                             <div class="text-news ml-6">
                                                 <div class="title-post">
@@ -40,6 +41,9 @@ const PageNews = {
      </main>
           <footer>${Footer.render()}</footer>
         `;
+    },
+    afterRender() {
+        Header.afterRender();
     },
 };
 export default PageNews;
